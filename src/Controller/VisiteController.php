@@ -45,7 +45,8 @@ class VisiteController extends AbstractController
         $form->handleRequest($request);
 
         // Simulate setting a user; replace with actual user fetching logic
-        $user = $entityManager->getRepository(User::class)->find(36);
+        //$user = $entityManager->getRepository(User::class)->find(2);
+        $user = $this->getUser();
         $visite->setResponsable($user);
 
         if ($form->isSubmitted() && $form->isValid()) {
