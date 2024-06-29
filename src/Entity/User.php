@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -22,6 +24,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $id;
 
     /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $nom;
+
+    /**
      * @ORM\Column(type="string", length=180, unique=true)
      */
     private $email;
@@ -29,7 +36,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @ORM\Column(type="json")
      */
-    private $roles = ['ROLE_USER']; // Default role 'ROLE_USER'
+    private $roles = []; 
 
     /**
      * @var string The hashed password
@@ -43,11 +50,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $isVerified = false;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $nom;
-
-    /**
      * @ORM\Column(type="string", length=255)
      */
     private $prenom;
@@ -56,6 +58,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\Column(type="string", length=255)
      */
     private $telephone;
+
+    // /**
+    //  * @ORM\Column(type="boolean")
+    //  */
+    // private $isActive;
+
+    // public function __construct()
+    // {
+    //     $this->isActive = true; // Actif par défaut
+    // }
 
 
     public function getId(): ?int
@@ -101,8 +113,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function getRoles(): array
     {
         $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
+        
+        if (empty($roles)) {
+            $roles[] = 'USER';
+        }
 
         return array_unique($roles);
     }
@@ -120,7 +134,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getPassword(): string
     {
-        return $this->password;
+        return $this->password ?? '';
     }
 
     public function setPassword(string $password): self
@@ -197,5 +211,64 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+
+    /**
+     * @ORM\OneToMany(targetEntity=Visite::class, mappedBy="responsable")
+     */
+    private $visites;
+
+    public function __construct()
+    {
+        $this->visites = new ArrayCollection();
+    }
+
+    // other getters and setters
+
+    /**
+     * @return Collection|Visite[]
+     */
+    public function getVisites(): Collection
+    {
+        return $this->visites;
+    }
+
+    public function addVisite(Visite $visite): self
+    {
+        if (!$this->visites->contains($visite)) {
+            $this->visites[] = $visite;
+            $visite->setResponsable($this);
+        }
+
+        return $this;
+    }
+
+    public function removeVisite(Visite $visite): self
+    {
+        if ($this->visites->removeElement($visite)) {
+            // set the owning side to null (unless already changed)
+            if ($visite->getResponsable() === $this) {
+                $visite->setResponsable(null);
+            }
+        }
+
+        return $this;
+    }
+    public function __toString()
+    {
+        return $this->nom ?? '';
+    }
+
+    // public function getIsActive(): ?bool
+    // {
+    //     return $this->isActive;
+    // }
+
+    // public function setIsActive(bool $isActive): self
+    // {
+    //     $this->isActive = $isActive;
+
+    //     return $this;
+    // }
 
 }

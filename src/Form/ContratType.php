@@ -1,7 +1,9 @@
 <?php
 namespace App\Form;
 
+use App\Entity\Client;
 use App\Entity\Contrat;
+use App\Entity\Produit;
 use App\Entity\User;
 use Doctrine\DBAL\Types\DateType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -44,6 +46,14 @@ class ContratType extends AbstractType
                 'attr' => ['class' => 'form-control'],
                 'label' => 'Date fin',
                 'label_attr' => ['class' => 'form-label'],
+            ])
+            
+            
+            ->add('produit', EntityType::class, [
+                'class' => Produit::class,
+                'choice_label' => 'nom',
+                'attr' => ['class' => 'form-control'],
+                // Other options as needed
             ])
             ->add('brochure', FileType::class, [
                 'label' => 'Contrat (PDF file)',

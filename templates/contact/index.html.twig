@@ -7,13 +7,21 @@
 <nav>
     <div class="nav-content">
       <div class="logo">
-        <a href="#">ContractLab.</a>
+        <a href="http://127.0.0.1:8000/">ContractLab.</a>
       </div>
       <ul class="nav-links">
             <li><a href="http://127.0.0.1:8000/">Acceuil</a></li>
-            <li><a href="http://127.0.0.1:8000/contrat">Contrats</a></li>
             <li><a href="http://127.0.0.1:8000/about">About</a></li>
             <li><a href="http://127.0.0.1:8000/contact">Contact</a></li>
+            {% if is_granted('ROLE_RESPONSABLE') %}
+            <li><a href="http://127.0.0.1:8000/dashboard_responsable">Dashboard Responsable</a></li>
+            {% endif %}
+             {% if is_granted('ROLE_ADMIN') %}
+            <li><a href="http://127.0.0.1:8000/dashboard">Dashboard Admin</a></li>
+        {% endif %} 
+            {% if is_granted('ROLE_GESTIONNAIRE') %}
+            <li><a href="http://127.0.0.1:8000/dashboard_gestionnaire">Dashboard Gestionnaire</a></li>
+            {% endif %} 
             {% if is_granted('IS_AUTHENTICATED_FULLY') %}
             <li>
             <div class="dropdown">
@@ -28,6 +36,7 @@
             {% if not is_granted('IS_AUTHENTICATED_FULLY') %}
         <li><a href="http://127.0.0.1:8000/login">Login</a></li>
            {% endif %}
+          
       </ul>
     </div>
   </nav>
@@ -78,37 +87,28 @@
       <div class="footer__addr">
         <img class="img-footer"src="code/progress.png" >
         <h2>Contact</h2>
-        <address>5534 Tunis , Tunisia<br> <a class="footer__btn" href="ContractLab@gmail.com">Email Us</a></address>
+        <address>5534 Tunis , Tunisia<br> <a class="footer__btn" href="#section2">Email Us</a></address>
       </div>
       <ul class="footer__nav">
         <li class="nav__item">
-          <h2 class="nav__title">Media</h2>
+           <h2 class="nav__title">Réseaux sociaux</h2>
           <ul class="nav__ul">
-            <li><a href="#">Online</a></li>
-            <li><a href="#">Print</a></li>
-            <li><a href="#">Alternative Ads</a></li>
+            <li><a href="https://www.progress.com.tn/">Site web</a></li>
+            <li><a href="https://www.facebook.com/ProgressengineeringTunisia">Facebook</a></li>
+            <li><a href="https://tn.linkedin.com/company/progress-engineering">Linkedin</a></li>
          </ul>
         </li>
         <li class="nav__item">
-          <h2 class="nav__title">Legal</h2>
+          <h2 class="nav__title">Adresse</h2>
           <ul class="nav__ul">
-            <li><a href="#">Privacy Policy</a></li>
-            <li><a href="#">Terms of Use</a></li>
-            <li><a href="#">Sitemap</a></li>
-          </ul>
-        </li>
-        <li class="nav__item">
-          <h2 class="nav__title">Legal</h2>
-          <ul class="nav__ul">
-            <li><a href="#">Privacy Policy</a></li>
-            <li><a href="#">Terms of Use</a></li>
-            <li><a href="#">Sitemap</a></li>
+            <li><a>Parc Technologique Elgazala</a></li>
+            <li><a>Batiment i2 RDC</a></li>
+            <li><a>Elgazala، Ariana 2088، TN</a></li>
           </ul>
         </li>
       </ul>
       <div class="legal"><p>&copy; 2024. All rights reserved.</p></div>
     </footer>
-
 <style>
 
 

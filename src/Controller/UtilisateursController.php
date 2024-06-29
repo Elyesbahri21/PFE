@@ -43,6 +43,9 @@ class UtilisateursController extends AbstractController
     #[Route('/{id}', name: 'app_utilisateurs_show', methods: ['GET'])]
     public function show(Utilisateurs $utilisateur): Response
     {
+        // $user = $UserRepository->findBy(['user' => $user]);
+        // $totalUsers = count($user);
+
         return $this->render('utilisateurs/show.html.twig', [
             'utilisateur' => $utilisateur,
         ]);

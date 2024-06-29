@@ -34,6 +34,7 @@ class RegistrationController extends AbstractController
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
 
+
         if ($form->isSubmitted() && $form->isValid()) {
             // encode the plain password
             $user->setPassword(
@@ -46,6 +47,20 @@ class RegistrationController extends AbstractController
             $entityManager->persist($user);
             $entityManager->flush();
 
+
+
+            // Ensure the user has at least 'ROLE_USER' if no roles are set
+            $roles = $user->getRoles();
+            if (empty($roles)) {
+                $user->setRoles(['ROLE_USER']);
+            }
+
+            $entityManager->persist($user);
+            $entityManager->flush();
+
+
+
+
             // generate a signed url and email it to the user
             $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
                 (new TemplatedEmail())
@@ -54,8 +69,7 @@ class RegistrationController extends AbstractController
                     ->subject('Please Confirm your Email')
                     ->htmlTemplate('registration/confirmation_email.html.twig')
             );
-            // do anything else you need here, like send an email
-
+            // do anything else you need here, like send an email  
 
 // Add a flash message
 $this->addFlash('success', 'Your account has been created successfully! Please log in.');

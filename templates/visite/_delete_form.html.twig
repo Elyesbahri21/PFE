@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Delete Visite{% endblock %}
+
+{% block body %}
+
+
+    <form method="post" action="{{ path('visite_delete', {'id': visite.id}) }}" onsubmit="return confirm('Are you sure you want to delete this visite?')">
+        <input type="hidden" name="_method" value="DELETE">
+        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ visite.id) }}">
+        <button type="submit" class="btn btn-outline-danger">Supprimer</button>
+    </form>
+{% endblock %}

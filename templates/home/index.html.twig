@@ -13,97 +13,220 @@
 <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Josefin Sans" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/bootstrap@5.3.3/dist/css/bootstrap.min.css">
 
 
-<link rel="stylesheet" href="{{ asset('bundles/mercuryseriesflashy/css/flashy.css') }}">
 
    </head>
 <body>
-  <nav>
-    <div class="nav-content">
-      <div class="logo">
-        <a href="#">ContractLab.</a>
-      </div>
-      <ul class="nav-links">
-            <li><a href="http://127.0.0.1:8000/">Acceuil</a></li>
-            <li><a href="http://127.0.0.1:8000/contrat">Contrats</a></li>
-            <li><a href="http://127.0.0.1:8000/about">About</a></li>
-            <li><a href="http://127.0.0.1:8000/contact">Contact</a></li>
-            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-            <li>
-            <div class="dropdown">
-            <button class="fas fa-user dropdown-toggle" id="dropdownMenuButton"><span class="user-name">  {{ app.user.nom }}</span></button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              <a class="dropdown-item" href="http://127.0.0.1:8000/profile">  Profile</a>
-              <a class="dropdown-item" href="http://127.0.0.1:8000/logout">  Logout</a>
+ <nav class="navbar navbar-expand-lg navbar-light bg-white">
+        <div class="container">
+            <a class="navbar-brand" href="http://127.0.0.1:8000/">
+                <img src="code/contratlab-logo-png.png" alt="ContractLab Logo"  style="height: 30%; width: 30%; margin-left: 20px;">
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="http://127.0.0.1:8000/">Accueil</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#section1">À propos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#section2">Contact</a>
+                    </li>
+                    {% if is_granted('ROLE_RESPONSABLE') %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="http://127.0.0.1:8000/dashboard_responsable">Dashboard Responsable</a>
+                    </li>
+                    {% endif %}
+                    {% if is_granted('ROLE_ADMIN') %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="http://127.0.0.1:8000/dashboard">Dashboard Admin</a>
+                    </li>
+                    {% endif %}
+                    {% if is_granted('ROLE_GESTIONNAIRE') %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="http://127.0.0.1:8000/dashboard_gestionnaire">Dashboard Gestionnaire</a>
+                    </li>
+                    {% endif %}
+                    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-user"></i> <span class="user-name">{{ app.user.nom }}</span>
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="http://127.0.0.1:8000/profile">Profile</a>
+                            <a class="dropdown-item" href="http://127.0.0.1:8000/logout">Logout</a>
+                        </div>
+                    </li>
+                    {% endif %}
+                    {% if not is_granted('IS_AUTHENTICATED_FULLY') %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="http://127.0.0.1:8000/login">Login</a>
+                    </li>
+                    {% endif %}
+                </ul>
             </div>
-            </div>
-            </li>
-            {% endif %}
-            {% if not is_granted('IS_AUTHENTICATED_FULLY') %}
-        <li><a href="http://127.0.0.1:8000/login">Login</a></li>
-           {% endif %}
-      </ul>
-    </div>
-  </nav>
-
-
-
-
-
-
-
-
+        </div>
+    </nav>
 <br>
-  <header class="header">
+  <header id="section" class="header">
 	<div class="brand-box"><span class="brand"></span></div>
 	<div class="text-box">
 		<h1 class="heading-primary">
-			<span class="heading-primary-main">All your contracts</span>
-			<span class="heading-primary-sub">in one place</span>
+<span class="heading-primary-main" style="font-weight: bold; font-size: 1em;">BIENVENUE</span>
+
+			<span class="heading-primary-sub">Contratlab by Progress Engineering</span>
 		</h1>
-		<a href="#" class="btn btn-white btn-animated">Get started</a>
+		{# <a href="http://127.0.0.1:8000/login" class="btn btn-white btn-animated">Commencer</a> #}
 	</div>
 </header>
 <br><br> 
-<div class="container">
-  <div style="display:flex;flex-direction:row;">
-    <div class="col-12">
-      <h1>Votre centre de documents</h1>
-      <h2>Grâce au système de gestion de documents de CONTRACTLAB, trouver vos documents est plus facile que jamais. </h2>
+<h2 class="text-center" >"Découvrez Qui Nous Sommes"</h2>
+<br><br> 
+<div id="section1" class="jumbotron bg-cover bg-no-repeat bg-center text-white" style="background-image: url(https://bootstrapious.com/i/snippets/sn-static-header/background.jpg);">
+    <div class="container py-5 text-center">
+        <h1 class="display-4 font-weight-bold">À propos de nous ?</h1>
+        <br>
+        <p class="font-italic mb-0">Votre opinion est précieuse pour nous et nous aidera à améliorer continuellement nos produits et services.</p>
     </div>
-  </div>
 </div>
-<div class="container">
-  <div class="row">
-    <div class="col-lg-3 col-md-6">
-      <div class="card h-100"> <img class="card-img-top" src="https://www.spektrix.com/hubfs/Clients/the-wedding-gift-contemporary-american-theatre-festival-credit-seth-freeman-600-188.jpg" alt="A queen in a red dress and crown is surrounded by courtiers onstage at Contemporary American Theatre Festival">
-        <div class="card-block">
-          <h5>CONTACT US !</h5>
-			 <p align="center" class="card-text">Get in touch with us, we are available 24/7.</p>
-          <button type="button" class="btn btn-secondary" href="contact" >Contact us</button>
-        </div>
+
+<section class="py-5" >
+	<div class="container">
+		<div class="row align-items-center gx-4">
+			<div class="col-md-5">
+				<div class="ms-md-2 ms-lg-5 "><img class="img-fluid rounded-3"  src="code/progress.png"></div>
+			</div>
+			<div class="col-md-6 offset-md-1">
+				<div class="ms-md-2 ms-lg-5">
+					<span class="text-muted">À propos de nous ?</span>
+					<h2 class="display-5 fw-bold" style="color: Blue;">Présentation</h2>
+					<p class="lead">Progress Engineering est une société de services numériques (ESN) spécialisée dans l’étude, le conseil et le développement informatique. Créée en 2000 par trois ingénieurs, notre société a acquis un savoir faire, des compétences et de l’expérience lui permettant de mener à bien tout projet informatique avec tous ses aspects (spécification, conception, développement, test, validation, déploiement, assistance et maintenance). Grâce à sa politique de croissance étudiée, Progress Engineering a su maintenir sa position d’acteur important dans le secteur des SSII en Tunisie.</p>
+					<p class="lead mb-0"></p>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<section class="py-3 py-md-5">
+  <div class="container">
+    <div class="row gy-3 gy-md-4 gy-lg-0 ">
+      <div class="img-fluid col-12 col-lg-6 col-xl-5">
+      <div class="ms-md-2 ms-lg-5">
+        <img class="img-fluid rounded-3" loading="lazy" src="https://www.progress.com.tn/wp-content/uploads/2023/12/tester.jpg" alt="About 1"></div>
       </div>
-    </div>
-    <div class="col-lg-3 col-md-6">
-      <div class="card h-100"> <img class="card-img-top" src="https://www.spektrix.com/hubfs/Clusters/Marketing/working-together-increase-revenue-600-188.jpg" alt="A queen in a red dress and crown is surrounded by courtiers onstage at Contemporary American Theatre Festival">
-        <div class="card-block">
-          <h5>Working Collaboratively to Increase Revenue</h5>
-			 <p class="card-text">Inspiration and ideas to get your whole team behind your income targets.</p>
-          <button type="button" class="btn btn-secondary">Download Now!</button>
-        </div>
-      </div>
-    </div>
-    <div class="col-lg-3 col-md-6">
-      <div class="card h-100"> <img class="card-img-top" src="https://www.spektrix.com/hubfs/Clients/opera-holland-park-pirates-penzance-credit-ali-wright-600-188.jpg" alt="An audience gathered on picnic rugs in an arched stone courtyard on a sunny day, enjoying live outdoor opera">
-        <div class="card-block">
-          <h5>Spektrix Data Insights</h5>
-			  <p class="card-text">Data points and best practice ideas to help you benchmark and grow success.</p>
-          <button type="button" class="btn btn-info">Updated for 2024!</button>
+      <div class="col-12 col-lg-6 col-xl-7">
+        <div class="row justify-content-xl-center">
+          <div class="col-12 col-xl-11">
+            <h2 class="mb-3">Nos Services</h2>
+            <p class="lead fs-4 text-secondary mb-3">Nous sommes une entreprise High-Tech orientée client. Notre expérience avec les entreprises publiques et privées et avec des Ministères tunisiens nous confère une position très confortable pour traiter des projets pour des comptes publics ou privés et répondre aux besoins.</p>
+            <p class="mb-5">Grâce à nos atouts et à nos valeurs, nous parvenons à fidéliser notre clientèle et à attirer de nouveaux clients.</p>
+            <div class="row gy-4 gy-md-0 gx-xxl-5X">
+              <div class="col-12 col-md-6">
+                <div class="d-flex">
+                  <div class="me-4 text-primary">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-gear-fill" viewBox="0 0 16 16">
+                      <path d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872l-.1-.34zM8 10.93a2.929 2.929 0 1 1 0-5.86 2.929 2.929 0 0 1 0 5.858z" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h2 class="h4 mb-3">Développement Apps Mobiles</h2>
+                    <p class="text-secondary mb-0">Nous développons des applications mobiles pour s’adapter aux préférences changeantes des utilisateurs et explorer de nouvelles opportunités commerciales.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12 col-md-6">
+                <div class="d-flex">
+                  <div class="me-4 text-primary">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-gear-fill" viewBox="0 0 16 16">
+                      <path d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872l-.1-.34zM8 10.93a2.929 2.929 0 1 1 0-5.86 2.929 2.929 0 0 1 0 5.858z" />
+                    </svg>
+                  </div>
+                   <div>
+                    <h2 class="h4 mb-3">Ingénierie logiciel et système</h2>
+                    <p class="text-secondary mb-0">Nous développons des solutions logiciels sur mesure qui favorisent l’efficacité opérationnelle, la prise de décision éclairée, l’innovation et la compétitivité pour nos clients.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12 col-md-6">
+                <div class="d-flex">
+                  <div class="me-4 text-primary"><br><br>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-gear-fill" viewBox="0 0 16 16">
+                      <path d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872l-.1-.34zM8 10.93a2.929 2.929 0 1 1 0-5.86 2.929 2.929 0 0 1 0 5.858z" />
+                    </svg>
+                  </div>
+                  <br>
+                   <div>
+                   <br><br>
+                    <h2 class="h4 mb-3">Test, validation et assurance qualité</h2>
+                    <p class="text-secondary mb-0">Les activités de test permettent de s’assurer que les applications et les système mis en place répondent aux normes de qualité et de performance attendue..</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12 col-md-6">
+                <div class="d-flex">
+                  <div class="me-4 text-primary"><br><br>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-gear-fill" viewBox="0 0 16 16">
+                      <path d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872l-.1-.34zM8 10.93a2.929 2.929 0 1 1 0-5.86 2.929 2.929 0 0 1 0 5.858z" />
+                    </svg>
+                  </div>
+                  <div>
+                  <br><br>
+                    <h2 class="h4 mb-3">Maintenance, support et assistance</h2>
+                    <p class="text-secondary mb-0">Nous assurons la maintenance et le support des solutions logiciels déployées afin de garantir leurs pérennité.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
+</section>
+
+<div id="section2" class="jumbotron bg-cover bg-no-repeat bg-center text-white" style="background-image: url(https://bootstrapious.com/i/snippets/sn-static-header/background.jpg);">
+    <div class="container py-5 text-center">
+        <h1 class="display-4 font-weight-bold">Contactez-nous !</h1>
+        <p class="font-italic mb-0">Votre opinion est précieuse pour nous et nous aidera à améliorer continuellement nos produits et services.</p>
+        <p class="font-italic">
+            <a href="#" class="text-white">
+                <u></u>
+            </a>
+        </p>
+        <a href="#section" role="button" class="btn btn-primary px-5">Accueil</a>
+    </div>
+</div>
+
+<div class="container py-5">
+    <h2 class="h3 font-weight-bold">Contact</h2>
+    <div class="row">
+        <div class="col-lg-10 mb-4">
+            <p class="font-italic text-muted">Nous sommes toujours ravis d'entendre de nos visiteurs. Si vous avez des questions, des commentaires ou des suggestions, n'hésitez pas à nous contacter en utilisant le formulaire ci-dessous.</p>
+            <p class="font-italic text-muted"></p>
+        </div>
+        <div class="col-lg-8">
+            <p class="font-italic text-muted"> <strong class="font-weight-bold text-dark"> </strong></p>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <h2 class="text-center"></h2>
+            <div class="card">
+                <div class="card-body">
+                    {{ form(formulaire, {'attr': {'class': 'form'}}) }}
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
   <br><br><br><br><br><br><br><br><br><br>
@@ -111,31 +234,23 @@
       <div class="footer__addr">
         <img class="img-footer"src="code/progress.png" >
         <h2>Contact</h2>
-        <address>5534 Tunis , Tunisia<br> <a class="footer__btn" href="ContractLab@gmail.com">Email Us</a></address>
+        <address>5534 Tunis , Tunisia<br> <a class="footer__btn" href="#section2">Email Us</a></address>
       </div>
       <ul class="footer__nav">
         <li class="nav__item">
-          <h2 class="nav__title">Media</h2>
+           <h2 class="nav__title">Réseaux sociaux</h2>
           <ul class="nav__ul">
-            <li><a href="#">Online</a></li>
-            <li><a href="#">Print</a></li>
-            <li><a href="#">Alternative Ads</a></li>
+            <li><a href="https://www.progress.com.tn/">Site web</a></li>
+            <li><a href="https://www.facebook.com/ProgressengineeringTunisia">Facebook</a></li>
+            <li><a href="https://tn.linkedin.com/company/progress-engineering">Linkedin</a></li>
          </ul>
         </li>
         <li class="nav__item">
-          <h2 class="nav__title">Legal</h2>
+          <h2 class="nav__title">Adresse</h2>
           <ul class="nav__ul">
-            <li><a href="#">Privacy Policy</a></li>
-            <li><a href="#">Terms of Use</a></li>
-            <li><a href="#">Sitemap</a></li>
-          </ul>
-        </li>
-        <li class="nav__item">
-          <h2 class="nav__title">Legal</h2>
-          <ul class="nav__ul">
-            <li><a href="#">Privacy Policy</a></li>
-            <li><a href="#">Terms of Use</a></li>
-            <li><a href="#">Sitemap</a></li>
+            <li><a>Parc Technologique Elgazala</a></li>
+            <li><a>Batiment i2 RDC</a></li>
+            <li><a>Elgazala، Ariana 2088، TN</a></li>
           </ul>
         </li>
       </ul>
@@ -144,7 +259,48 @@
 
 <style>
 
+#section2 {
+    background-size: cover; /* Cover the entire container */
+    background-position: center; /* Center the background image */
+    background-repeat: no-repeat; /* Prevent image from repeating */
+    height: 350px; /* Set the desired height for the jumbotron */
+}
 
+
+#section1 {
+    background-size: cover; /* Cover the entire container */
+    background-position: center; /* Center the background image */
+    background-repeat: no-repeat; /* Prevent image from repeating */
+    height: 350px; /* Set the desired height for the jumbotron */
+}
+.navbar-brand img {
+            height: 30%;
+            width: 30%;
+        }
+
+        .navbar-nav .nav-link {
+            white-space: nowrap;
+            font-size: 15px; /* Increase font size */
+            font-weight: bold; /* Make font bold */
+        }
+        .navbar-nav .nav-link:hover {
+            color: #blue; /* Blue color on hover */
+        }
+        .navbar-nav .dropdown-menu {
+            background-color: #f8f9fa;
+        }
+
+        .navbar-nav .dropdown-menu .dropdown-item:hover {
+            background-color: #blue;
+        }
+
+.img-fluid rounded{
+padding : 10px;}
+
+
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+    .img-footer{ width:150px; }
 
   .dropdown {
     position: relative;
@@ -183,7 +339,6 @@ body {
     font-weight: 400;
     font-size: 16px;
     line-height: 1.7;
-    color: #eee;
 }
 .header {
     height: 70vh;
@@ -254,7 +409,6 @@ body, p {
     font-weight: 400;
 }
 h1 {
-    color: #28a745;
     font-family: Josefin Sans;
     font-size: 50px;
     font-style: normal;
@@ -268,49 +422,7 @@ a {
     -webkit-transition: .25s all;
     transition: .25s all;
 }
-.card {
-    padding-left: auto;
-    padding-right: auto;
-    margin-top: 30px;
-    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
-    -webkit-transition: .25s box-shadow;
-    transition: .25s box-shadow;
-}
-.card:focus, .card:hover {
-    box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15);
-}
-.card-inverse .card-img-overlay {
-    background-color: rgba(51, 51, 51, 0.85);
-    border-color: rgba(51, 51, 51, 0.85);
-}
-.card-img-top {
-    max-width: 100%;
-    height: auto;
-	border-top-right-radius: calc(.75rem - 3px);
-    border-top-left-radius: calc(.75rem - 3px);
-}
-.card-block {
-    -webkit-box-flex: 1;
-    -webkit-flex: 1 1 auto;
-    -ms-flex: 1 1 auto;
-    flex: 1 1 auto;
-    padding: 1.25rem;
-}
-.col-lg-3 {
-    text-align: center;
-    margin-left: auto;
-    margin-right: auto;
-}
-.col-12 {
-    text-align: center;
-    margin-left: auto;
-    margin-right: auto;
-	margin-top: 20px;
-}
-.col-lg-3 {
-    padding-right: 15px;
-    padding-left: 15px;
-}
+
 .row {
    display:flex;
    flex-direction:row;
@@ -333,19 +445,14 @@ a {
     padding-right: 50px;
     padding-left: 50px;
 }
-.card-block {
-    padding-right: 10px;
-    padding-left: 10px;
-}
+
 .img-footer{ width:150px; }
-
-
-
-
-
-
 </style>
 
+
+<script> // Initialization for ES Users
+import { Input, Ripple, initMDB } from "mdb-ui-kit";
+initMDB({ Input, Ripple });  </script>
   <script type = "text/javascript" src="logJS.js">
     var TooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
   var TooltipList = TooltipTriggerList.map(function (TooltipTriggerEl) {
@@ -357,9 +464,6 @@ a {
   });
   </script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
-
-
 
 <!-- Flashy depends on jQuery -->
     <script src="//code.jquery.com/jquery.js"></script>

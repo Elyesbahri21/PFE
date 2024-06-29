@@ -20,7 +20,7 @@ final class Version20240606171146 extends AbstractMigration
     public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->addSql('ALTER TABLE contrat ADD brochure VARCHAR(255) DEFAULT NULL');
+        $this->addSql('ALTER TABLE contrat CHANGE brochure brochure VARCHAR(255) DEFAULT NULL');
     }
 
     public function down(Schema $schema): void

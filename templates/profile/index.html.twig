@@ -28,20 +28,56 @@
 </style>
 
 <header>
- <nav>
-    <div class="nav-content">
-      <div class="logo">
-        <a href="#">ContractLab.</a>
-      </div>
-      <ul class="nav-links">
-            <li><a href="http://127.0.0.1:8000/">Acceuil</a></li>
-            <li><a href="#">Contrats</a></li>
-            <li><a href="profile">Profile</a></li>
-            <li><a href="http://127.0.0.1:8000/about">About</a></li>
-            <li><a href="http://127.0.0.1:8000/contact">Contact</a></li>
-      </ul>
+ <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container">
+        <a class="navbar-brand" href="http://127.0.0.1:8000/">
+            <img src="code/contratlab-logo-png.png" style="height: 30px; width: auto;" alt="ContratLab Logo">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="http://127.0.0.1:8000/">Accueil</a>
+                </li>
+                {% if is_granted('ROLE_RESPONSABLE') %}
+                <li class="nav-item">
+                    <a class="nav-link" href="http://127.0.0.1:8000/dashboard_responsable">Dashboard Responsable</a>
+                </li>
+                {% endif %}
+                {% if is_granted('ROLE_ADMIN') %}
+                <li class="nav-item">
+                    <a class="nav-link" href="http://127.0.0.1:8000/dashboard">Dashboard Admin</a>
+                </li>
+                {% endif %}
+                {% if is_granted('ROLE_GESTIONNAIRE') %}
+                <li class="nav-item">
+                    <a class="nav-link" href="http://127.0.0.1:8000/dashboard_gestionnaire">Dashboard Gestionnaire</a>
+                </li>
+                {% endif %}
+                {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-user"></i> {{ app.user.nom }}
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="http://127.0.0.1:8000/profile">Profil</a>
+                        <a class="dropdown-item" href="http://127.0.0.1:8000/logout">Déconnexion</a>
+                    </div>
+                </li>
+                {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="http://127.0.0.1:8000/login">Connexion</a>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
     </div>
-  </nav>
+</nav>
+
     </header>
 <br><br><br><br>
     <main>
@@ -53,22 +89,22 @@
       <div class="col-lg-4">
         <div class="card mb-4">
           <div class="card-body text-center">
-            <img src="code/bahri.jpg" alt="avatar"
+            <img src="code/user.png" alt="avatar"
               class="rounded-circle img-fluid" style="width: 150px;">
             <h5 class="my-3">{{app.user.prenom}} {{app.user.nom}}</h5>
-            <p class="text-muted mb-1">Admin</p><br>
+            <p class="text-muted mb-1">{{ app.user.roles|join(', ') }}</p><br>
             <div class="d-flex justify-content-center mb-2">
               <a type="button"  class="btn btn-primary" href="reset-password">reset password</a>
               <a type="button"  class="btn btn-outline-primary ms-1" href="contact">contact</a>
             </div>
           </div>
         </div>
-        <div class="card mb-4 mb-lg-0">
+        {# <div class="card mb-4 mb-lg-0">
           <div class="card-body p-0">
             <ul class="list-group list-group-flush rounded-3">
               <li class="list-group-item d-flex justify-content-between align-items-center p-3">
                 <i class="fas fa-globe fa-lg text-warning"></i>
-                <p class="mb-0">https://github.com</p>
+                <p class="mb-0">Github</p>
               </li>
               <li class="list-group-item d-flex justify-content-between align-items-center p-3">
                 <i class="fab fa-github fa-lg" style="color: #333333;"></i>
@@ -80,7 +116,7 @@
               </li>
             </ul>
           </div>
-        </div>
+        </div> #}
       </div>
       <div class="col-lg-8">
         <div class="card mb-4">
@@ -131,64 +167,62 @@
 </section>
 </main>
 
- <footer class="footer">
+  <footer class="footer">
       <div class="footer__addr">
-        <img src="Images/contractlab.JPG">
+        <img class="img-footer"src="code/progress.png" style="width:150px;">
         <h2>Contact</h2>
-        <address>
-          5534 Tunis , Tunisia<br> 
-          <a class="footer__btn" href="ContractLab@gmail.com">Email Us</a>
-        </address>
+        <address>5534 Tunis , Tunisia<br> <a class="footer__btn" href="#section2">Email Us</a></address>
       </div>
       <ul class="footer__nav">
         <li class="nav__item">
-          <h2 class="nav__title">Media</h2>
+           <h2 class="nav__title">Réseaux sociaux</h2>
           <ul class="nav__ul">
-            <li>
-              <a href="#">Online</a>
-            </li>
-            <li>
-              <a href="#">Print</a>
-            </li>
-            <li>
-              <a href="#">Alternative Ads</a>
-            </li>
-          </ul>
+            <li><a href="https://www.progress.com.tn/">Site web</a></li>
+            <li><a href="https://www.facebook.com/ProgressengineeringTunisia">Facebook</a></li>
+            <li><a href="https://tn.linkedin.com/company/progress-engineering">Linkedin</a></li>
+         </ul>
         </li>
         <li class="nav__item">
-          <h2 class="nav__title">Legal</h2>
+          <h2 class="nav__title">Adresse</h2>
           <ul class="nav__ul">
-            <li>
-              <a href="#">Privacy Policy</a>
-            </li>
-            <li>
-              <a href="#">Terms of Use</a>
-            </li>
-            <li>
-              <a href="#">Sitemap</a>
-            </li>
-          </ul>
-        </li>
-        <li class="nav__item">
-          <h2 class="nav__title">Legal</h2>
-          <ul class="nav__ul">
-            <li>
-              <a href="#">Privacy Policy</a>
-            </li>
-            <li>
-              <a href="#">Terms of Use</a>
-            </li>
-            <li>
-              <a href="#">Sitemap</a>
-            </li>
+            <li><a>Parc Technologique Elgazala</a></li>
+            <li><a>Batiment i2 RDC</a></li>
+            <li><a>Elgazala، Ariana 2088، TN</a></li>
           </ul>
         </li>
       </ul>
-      <div class="legal">
-        <p>&copy; 2024. All rights reserved.</p>
-      </div>
+      <div class="legal"><p>&copy; 2024. All rights reserved.</p></div>
     </footer>
     <script src="https://cdn.jsdelivr.net/npm/axentix@2.4.0/dist/axentix.min.js"></script>
     </div>
 
+
+<style>
+
+.navbar-brand img {
+            height: 30%;
+            width: 30%;
+        }
+
+        .navbar-nav .nav-link {
+            white-space: nowrap;
+            font-size: 15px; /* Increase font size */
+            font-weight: bold; /* Make font bold */
+        }
+        .navbar-nav .nav-link:hover {
+            color: #blue; /* Blue color on hover */
+        }
+        .navbar-nav .dropdown-menu {
+            background-color: #f8f9fa;
+        }
+
+        .navbar-nav .dropdown-menu .dropdown-item:hover {
+            background-color: #blue;
+        }
+
+
+.img-footer {
+    width: 150px;
+}
+</style>
 {% endblock %}

@@ -6,69 +6,92 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
- <nav>
-    <div class="nav-content">
-      <div class="logo">
-        <a href="#">ContractLab.</a>
-      </div>
-      <ul class="nav-links">
-            <li><a href="http://127.0.0.1:8000/">Acceuil</a></li>
-            <li><a href="http://127.0.0.1:8000/contrat">Contrats</a></li>
-            <li><a href="http://127.0.0.1:8000/about">About</a></li>
-            <li><a href="http://127.0.0.1:8000/contact">Contact</a></li>
-            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-            <li>
-            <div class="dropdown">
-            <button class="fas fa-user dropdown-toggle" id="dropdownMenuButton"><span class="user-name">  {{ app.user.nom }}</span></button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              <a class="dropdown-item" href="http://127.0.0.1:8000/profile">Profile</a>
-              <a class="dropdown-item" href="http://127.0.0.1:8000/logout">Logout</a>
-            </div>
-            </div>
-            </li>
-            {% endif %}
-            {% if not is_granted('IS_AUTHENTICATED_FULLY') %}
-        <li><a href="http://127.0.0.1:8000/login">Login</a></li>
-           {% endif %}
-      </ul>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container">
+        <a class="navbar-brand" href="http://127.0.0.1:8000/">
+            <img src="code/contratlab-logo-png.png" style="height: 30px; width: auto;" alt="ContratLab Logo">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="http://127.0.0.1:8000/">Accueil</a>
+                </li>
+                {% if is_granted('ROLE_RESPONSABLE') %}
+                <li class="nav-item">
+                    <a class="nav-link" href="http://127.0.0.1:8000/dashboard_responsable">Dashboard Responsable</a>
+                </li>
+                {% endif %}
+                {% if is_granted('ROLE_ADMIN') %}
+                <li class="nav-item">
+                    <a class="nav-link" href="http://127.0.0.1:8000/dashboard">Dashboard Admin</a>
+                </li>
+                {% endif %}
+                {% if is_granted('ROLE_GESTIONNAIRE') %}
+                <li class="nav-item">
+                    <a class="nav-link" href="http://127.0.0.1:8000/dashboard_gestionnaire">Dashboard Gestionnaire</a>
+                </li>
+                {% endif %}
+                {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-user"></i> {{ app.user.nom }}
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="http://127.0.0.1:8000/profile">Profil</a>
+                        <a class="dropdown-item" href="http://127.0.0.1:8000/logout">Déconnexion</a>
+                    </div>
+                </li>
+                {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="http://127.0.0.1:8000/login">Connexion</a>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
     </div>
-  </nav>
+</nav>
 <br>
 
 <body>
     <!-- Navigation-->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark" id="mainNav">
-        <a class="navbar-brand" href="index.html">My Dashboard</a>
+        <a class="navbar-brand" href="http://127.0.0.1:8000/dashboard">Dashboard administrateur</a>
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
                 <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
-                    <a class="nav-link" href="index.html">
+                    <a class="nav-link" href="http://127.0.0.1:8000/dashboard">
                         <i class="fa fa-fw fa-dashboard"></i>
                         <span class="nav-link-text">Dashboard</span>
                     </a>
                 </li>
                 <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Charts">
-                    <a class="nav-link" href="charts.html">
+                    <a class="nav-link" href="http://127.0.0.1:8000/dashboard/utilisateurs">
                         <i class="fa fa-fw fa-area-chart"></i>
                         <span class="nav-link-text">Utilisateurs</span>
                     </a>
                 </li>
                 <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
-                    <a class="nav-link" href="tables.html">
+                    <a class="nav-link" href="http://127.0.0.1:8000/contrat">
                         <i class="fa fa-fw fa-table"></i>
                         <span class="nav-link-text">Contrats</span>
                     </a>
                 </li>
-                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
-                    <a class="nav-link" href="tables.html">
+              <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
+                    <a class="nav-link" href="http://127.0.0.1:8000/client">
                         <i class="fa fa-fw fa-table"></i>
-                        <span class="nav-link-text">Alert</span>
+                        <span class="nav-link-text">Clients</span>
                     </a>
-                </li>
+                </li> 
             </ul>
         </div>
     </nav>
@@ -80,9 +103,10 @@
                 <li class="breadcrumb-item">
                     <a href="#">Dashboard</a>
                 </li>
-                <li class="breadcrumb-item active">My Dashboard</li>
+                <li class="breadcrumb-item active">Dashboard administrateur</li>
             </ol>
             <!-- Icon Cards-->
+            
             <div class="row">
                 <div class="col-xl-3 col-sm-6 mb-3">
                     <div class="card text-white bg-primary o-hidden h-100">
@@ -90,10 +114,10 @@
                             <div class="card-body-icon">
                                 <i class="fa fa-fw fa-comments"></i>
                             </div>
-                            <div class="mr-5">26 Total contrats</div>
+                            <div class="mr-5"> {{ totalContrats }} contrats</div>
                         </div>
-                        <a class="card-footer text-white clearfix small z-1" href="#">
-                            <span class="float-left">View Details</span>
+                        <a class="card-footer text-white clearfix small z-1" href="http://127.0.0.1:8000/contrat">
+                            <span class="float-left">Details</span>
                             <span class="float-right">
                                 <i class="fa fa-angle-right"></i>
                             </span>
@@ -106,9 +130,9 @@
                             <div class="card-body-icon">
                                 <i class="fa fa-fw fa-list"></i>
                             </div>
-                            <div class="mr-5">11 Utilisateurs</div>
+                            <div class="mr-5">{{ totalUsers }} Utilisateurs</div>
                         </div>
-                        <a class="card-footer text-white clearfix small z-1" href="#">
+                        <a class="card-footer text-white clearfix small z-1" href="http://127.0.0.1:8000/dashboard/utilisateurs">
                             <span class="float-left">View Details</span>
                             <span class="float-right">
                                 <i class="fa fa-angle-right"></i>
@@ -122,25 +146,9 @@
                             <div class="card-body-icon">
                                 <i class="fa fa-fw fa-shopping-cart"></i>
                             </div>
-                            <div class="mr-5">123 New Orders!</div>
+                            <div class="mr-5">{{ totalClients }} Clients </div>
                         </div>
-                        <a class="card-footer text-white clearfix small z-1" href="#">
-                            <span class="float-left">View Details</span>
-                            <span class="float-right">
-                                <i class="fa fa-angle-right"></i>
-                            </span>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-xl-3 col-sm-6 mb-3">
-                    <div class="card text-white bg-danger o-hidden h-100">
-                        <div class="card-body">
-                            <div class="card-body-icon">
-                                <i class="fa fa-fw fa-support"></i>
-                            </div>
-                            <div class="mr-5">13 New Tickets!</div>
-                        </div>
-                        <a class="card-footer text-white clearfix small z-1" href="#">
+                        <a class="card-footer text-white clearfix small z-1" href="http://127.0.0.1:8000/client/">
                             <span class="float-left">View Details</span>
                             <span class="float-right">
                                 <i class="fa fa-angle-right"></i>
@@ -149,13 +157,15 @@
                     </div>
                 </div>
             </div>
-            <!-- Area Chart Example-->
+            <!-- Alert-->
             <div class="card mb-3">
                 <div class="card-header">
-                    <i class="fa fa-area-chart"></i> Area Chart Example
+                    <i class="fa fa-area-chart"></i> Alert !
                 </div>
                 <div class="card-body">
                     <canvas id="myAreaChart" width="100%" height="30"></canvas>
+
+                 
                 </div>
                 <div class="card-footer small text-muted">text</div>
             </div>
@@ -164,7 +174,7 @@
                     <!-- /pie chart example-->
                 </div>
                 <div class="col-lg-4">
-                    <!-- Example Pie Chart Card-->
+                    {# <!-- Example Pie Chart Card-->
                     <div class="card mb-3">
                         <div class="card-header">
                             <i class="fa fa-pie-chart"></i> Pie Chart Example
@@ -173,43 +183,72 @@
                             <canvas id="myPieChart" width="100%" height="100"></canvas>
                         </div>
                         <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
-                    </div>
+                    </div> #}
                 </div>
             </div>
         </div>
     </div>
-
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
     <footer class="footer">
-        <div class="footer__addr">
-            <img class="img-footer" src="code/progress.png">
-            <address>5534 Tunis , Tunisia<br> <a class="footer__btn" href="ContractLab@gmail.com">Email Us</a></address>
-        </div>
-        <ul class="footer__nav">
-            <li class="nav__item">
-                <h1 class="nav__title">Media</h1>
-                <ul class="nav__ul">
-                    <li><a href="#">Online</a></li>
-                    <li><a href="#">Print</a></li>
-                    <li><a href="#">Alternative Ads</a></li>
-                </ul>
-            </li>
-            <li class="nav__item">
-                <h1 class="nav__title">Legal</h1>
-                <ul class="nav__ul">
-                    <li><a href="#">Privacy Policy</a></li>
-                    <li><a href="#">Terms of Use</a></li>
-                    <li><a href="#">Sitemap</a></li>
-                </ul>
-            </li>
-        </ul>
-        <div class="legal">
-            <p>&copy; 2024. All rights reserved.</p>
-        </div>
+      <div class="footer__addr">
+        <img class="img-footer"src="code/progress.png" style="width:150px;">
+        <h2>Contact</h2>
+        <address>5534 Tunis , Tunisia<br> <a class="footer__btn" href="#section2">Email Us</a></address>
+      </div>
+      <ul class="footer__nav">
+        <li class="nav__item">
+           <h2 class="nav__title">Réseaux sociaux</h2>
+          <ul class="nav__ul">
+            <li><a href="https://www.progress.com.tn/">Site web</a></li>
+            <li><a href="https://www.facebook.com/ProgressengineeringTunisia">Facebook</a></li>
+            <li><a href="https://tn.linkedin.com/company/progress-engineering">Linkedin</a></li>
+         </ul>
+        </li>
+        <li class="nav__item">
+          <h2 class="nav__title">Adresse</h2>
+          <ul class="nav__ul">
+            <li><a>Parc Technologique Elgazala</a></li>
+            <li><a>Batiment i2 RDC</a></li>
+            <li><a>Elgazala، Ariana 2088، TN</a></li>
+          </ul>
+        </li>
+      </ul>
+      <div class="legal"><p>&copy; 2024. All rights reserved.</p></div>
     </footer>
+
+
+
 
 <style>
 
 
+
+.navbar-brand img {
+            height: 30%;
+            width: 30%;
+        }
+
+        .navbar-nav .nav-link {
+            white-space: nowrap;
+            font-size: 15px; /* Increase font size */
+            font-weight: bold; /* Make font bold */
+        }
+        .navbar-nav .nav-link:hover {
+            color: #blue; /* Blue color on hover */
+        }
+        .navbar-nav .dropdown-menu {
+            background-color: #f8f9fa;
+        }
+
+        .navbar-nav .dropdown-menu .dropdown-item:hover {
+            background-color: #blue;
+        }
+.row{
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 -16px;
+    justify-content: center;
+}
 
   .dropdown {
     position: relative;
@@ -249,9 +288,6 @@
     display: flex;
 }
 
-.img-footer {
-    width: 150px;
-}
 
 
 .user-name {
@@ -613,8 +649,21 @@ body.sidenav-toggled .navbar-sidenav-tooltip.show {
 }
 
 
+/* charte */
 
+.charte {
+    width: 80%;
+    max-width: 600px;
+     font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
 
 </style>
+
 </body>
 {% endblock %}

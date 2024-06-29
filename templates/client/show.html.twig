@@ -1,0 +1,548 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Client - Contrat /Produit {% endblock %}
+
+{% block body %}
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container">
+        <a class="navbar-brand" href="http://127.0.0.1:8000/">
+            <img src="/code/contratlab-logo-png.png" style="height: 30px; width: auto;" alt="ContratLab Logo">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="http://127.0.0.1:8000/">Accueil</a>
+                </li>
+                {% if is_granted('ROLE_RESPONSABLE') %}
+                <li class="nav-item">
+                    <a class="nav-link" href="http://127.0.0.1:8000/dashboard_responsable">Dashboard Responsable</a>
+                </li>
+                {% endif %}
+                {% if is_granted('ROLE_ADMIN') %}
+                <li class="nav-item">
+                    <a class="nav-link" href="http://127.0.0.1:8000/dashboard">Dashboard Admin</a>
+                </li>
+                {% endif %}
+                {% if is_granted('ROLE_GESTIONNAIRE') %}
+                <li class="nav-item">
+                    <a class="nav-link" href="http://127.0.0.1:8000/dashboard_gestionnaire">Dashboard Gestionnaire</a>
+                </li>
+                {% endif %}
+                {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-user"></i> {{ app.user.nom }}
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="http://127.0.0.1:8000/profile">Profil</a>
+                        <a class="dropdown-item" href="http://127.0.0.1:8000/logout">Déconnexion</a>
+                    </div>
+                </li>
+                {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="http://127.0.0.1:8000/login">Connexion</a>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav><br>
+<br>
+
+<br>
+
+<body>
+    <!-- Navigation-->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark" id="mainNav">
+        <a class="navbar-brand" href="index.html">My Dashboard</a>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
+                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
+                    <a class="nav-link" href="http://127.0.0.1:8000/dashboard">
+                        <i class="fa fa-fw fa-dashboard"></i>
+                        <span class="nav-link-text">Dashboard</span>
+                    </a>
+                </li>
+                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Charts">
+                    <a class="nav-link" href="http://127.0.0.1:8000/dashboard/utilisateurs">
+                        <i class="fa fa-fw fa-area-chart"></i>
+                        <span class="nav-link-text">Utilisateurs</span>
+                    </a>
+                </li>
+                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
+                    <a class="nav-link" href="http://127.0.0.1:8000/contrat">
+                        <i class="fa fa-fw fa-table"></i>
+                        <span class="nav-link-text">Contrats</span>
+                    </a>
+                </li>
+                 <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
+                    <a class="nav-link" href="http://127.0.0.1:8000/client">
+                        <i class="fa fa-fw fa-table"></i>
+                        <span class="nav-link-text">Clients</span>
+                    </a>
+                </li> 
+            </ul>
+        </div>
+    </nav>
+    <br>
+    <div class="content-wrapper">
+        <div class="container-fluid">
+            <!-- Breadcrumbs -->
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="#">Dashboard</a>
+                </li>
+                <li class="breadcrumb-item active">Clients</li>
+                <li class="breadcrumb-item active">Contrats / Produits</li>
+            </ol>
+
+
+    <h1 class="mt-4 mb-4"> Contrats / Produits</h1>
+
+    <div class="table-responsive">
+        <table class="table table-bordered">
+            <tbody>
+                <tr>
+                    <th style="width: 200px;">Contrat</th>
+                    <td>{{ client.contrat }}</td>
+                </tr>
+                <tr>
+                    <th>Produits</th>
+                    <td>
+                        <ul class="list-unstyled">
+                            {% for produit in client.produits %}
+                                <li>{{ produit.nom }}</li>
+                            {% endfor %}
+                        </ul>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="btns">
+    <a class="btn btn-outline-primary mt-3" href="{{ path('app_client_index') }}">Back to List</a>
+
+    <a class="btn btn-outline-primary mt-3" href="{{ path('app_client_edit', {'id': client.id}) }}">Edit</a>
+
+    <div class="mt-4">
+        {{ include('client/_delete_form.html.twig') }}
+    </div>
+    </div>
+    <style>
+       .table-responsive{
+           padding: 50px;
+       }
+       h1{
+           right: 50px;
+            padding: 50px;
+       }
+         .btns{
+              padding: 50px;
+         }
+         </style>
+
+         <br><br><br><br>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="footer__addr">
+        <img class="img-footer"src="/code/progress.png" >
+        <h2>Contact</h2>
+        <address>5534 Tunis , Tunisia<br> <a class="footer__btn" href="#section2">Email Us</a></address>
+      </div>
+      <ul class="footer__nav">
+        <li class="nav__item">
+           <h2 class="nav__title">Réseaux sociaux</h2>
+          <ul class="nav__ul">
+            <li><a href="https://www.progress.com.tn/">Site web</a></li>
+            <li><a href="https://www.facebook.com/ProgressengineeringTunisia">Facebook</a></li>
+            <li><a href="https://tn.linkedin.com/company/progress-engineering">Linkedin</a></li>
+         </ul>
+        </li>
+        <li class="nav__item">
+          <h2 class="nav__title">Adresse</h2>
+          <ul class="nav__ul">
+            <li><a>Parc Technologique Elgazala</a></li>
+            <li><a>Batiment i2 RDC</a></li>
+            <li><a>Elgazala، Ariana 2088، TN</a></li>
+          </ul>
+        </li>
+      </ul>
+      <div class="legal"><p>&copy; 2024. All rights reserved.</p></div>
+    </footer>
+</body>
+
+
+<style>
+
+.navbar-brand img {
+            height: 30%;
+            width: 30%;
+        }
+
+        .navbar-nav .nav-link {
+            white-space: nowrap;
+            font-size: 15px; /* Increase font size */
+            font-weight: bold; /* Make font bold */
+        }
+        .navbar-nav .nav-link:hover {
+            color: #blue; /* Blue color on hover */
+        }
+        .navbar-nav .dropdown-menu {
+            background-color: #f8f9fa;
+        }
+
+        .navbar-nav .dropdown-menu .dropdown-item:hover {
+            background-color: #blue;
+        }
+.row{
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 -16px;
+    justify-content: center;
+}
+
+
+.custom-control-input {
+    position: absolute;
+    
+}
+
+.custom-control-input:checked ~ .custom-control-label::before {
+    background-color: red;
+    content: 'Désactivé';
+}
+
+.custom-control-input:not(:checked) ~ .custom-control-label::before {
+    background-color: green;
+    content: 'Activé';
+}
+
+.custom-control-label::before {
+    transition: background-color 0.3s ease-in-out, content 0.3s ease-in-out;
+    display: inline-block;
+    width: 100px; /* Further increased width */
+    height: 35px; /* Further increased height */
+    color: white;
+    text-align: center;
+    line-height: 35px; /* Match the height for vertical centering */
+    border-radius: 17.5px; /* Adjusted for larger height */
+    content: 'Désactivé'; /* default state */
+}
+
+.custom-control-label {
+    padding-left: 110px; /* Adjust based on new label size */
+    position: relative;
+    cursor: pointer;
+}
+
+.footer {
+    position: relative;
+    display: flex;
+    bottom: 0;
+    width: 100%;
+}
+
+.clearfix::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.login {
+    color: #f1356d;
+}
+
+.secondary {
+    margin-left: 15%;
+    margin-top: 30px;
+}
+
+body {
+    font-family: 'lato', sans-serif;
+}
+
+.container {
+    max-width: 1350px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+h2 {
+    font-size: 26px;
+    margin: 20px 0;
+    text-align: center;
+}
+
+.small {
+    font-size: 0.5em;
+}
+
+.responsive-table {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
+    border-radius: 3px;
+    overflow: hidden;
+    box-shadow: 0px 0px 9px 0px rgba(0,0,0,0.1);
+}
+
+.responsive-table .table-header {
+    background-color: #80C5FF;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    color: #fff;
+}
+
+.responsive-table .table-header th,
+.responsive-table .table-row td {
+    padding: 15px;
+    /* text-align: center; */
+}
+
+.responsive-table .table-row {
+    background-color: #ffffff;
+}
+
+.responsive-table .table-row:nth-of-type(even) {
+    background-color: #f2f2f2;
+}
+
+.responsive-table .col {
+    width: auto;
+    flex: 1;
+    /* text-align: center; */
+    overflow: hidden;
+}
+
+.responsive-table .col-1 {
+    flex-basis: 20%;
+    text-align: left;
+}
+
+.responsive-table .col-2 {
+    flex-basis: 10%;
+}
+
+.responsive-table .col-3 {
+    flex-basis: 10%;
+}
+
+.responsive-table .col-4 {
+    flex-basis: 10%;
+}
+
+.responsive-table .col-5 {
+    flex-basis: 15%;
+}
+
+.responsive-table .col-6 {
+    flex-basis: 20%;
+    
+    justify-content: center;
+    align-items: center;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.responsive-table .col-7 {
+    flex-basis: 25%;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.btn-group .btn {
+    margin-right: 5px;
+}
+
+@media all and (max-width: 767px) {
+    .responsive-table .table-header {
+        display: none;
+    }
+    
+    .responsive-table .table-row {
+        display: block;
+        margin-bottom: 20px;
+        box-shadow: none;
+    }
+    
+    .responsive-table .col {
+        display: block;
+        width: 100%;
+        text-align: right;
+        padding: 10px 5px;
+        position: relative;
+    }
+    
+    .responsive-table .col:before {
+        content: attr(data-label);
+        float: left;
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+}
+
+
+  .dropdown {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .dropdown-toggle {
+    background-color: #f1f1f1;
+    color: #333;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .dropdown-menu {
+    display: none;
+    position: absolute;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    z-index: 1;
+  }
+  
+  .dropdown-menu a {
+    display: block;
+    padding: 10px 20px;
+    color: #333;
+    text-decoration: none;
+  }
+  
+  .dropdown-menu a:hover {
+    background-color: #f1f1f1;
+  }
+
+.footer {
+    position: relative;
+    display: flex;
+}
+
+.img-footer {
+    width: 150px;
+}
+
+
+.user-name {
+    margin-left: 8px;
+}
+
+.card {
+    margin-bottom: 30px;
+}
+
+.card-header {
+    font-weight: bold;
+}
+
+.card-footer {
+    font-size: 0.875rem;
+}
+
+
+/* SIDE NAV */
+
+@media (min-width: 992px) {
+  #mainNav .navbar-brand {
+    width: 250px;
+  }
+  #mainNav .navbar-collapse {
+    overflow: visible;
+    max-height: none;
+  }
+  #mainNav .navbar-collapse .navbar-sidenav {
+    position: absolute;
+    top: 0;
+    left: 0;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    margin-top: 56px;
+  }
+  #mainNav .navbar-collapse .navbar-sidenav > .nav-item {
+    width: 250px;
+    padding: 0;
+  }
+  #mainNav .navbar-collapse .navbar-sidenav > .nav-item > .nav-link {
+    padding: 1em;
+  }
+
+  #mainNav .navbar-collapse .navbar-nav > .nav-item > .nav-link {
+    min-width: 0;
+  }
+  #mainNav .navbar-collapse .navbar-nav > .nav-item > .nav-link:after {
+    width: 24px;
+    text-align: center;
+  }
+  #mainNav .navbar-collapse .navbar-nav > .nav-item .dropdown-menu > .dropdown-item > .dropdown-message {
+    max-width: 300px;
+  }
+}
+
+@media (min-width: 992px) {
+  #mainNav.navbar-light .navbar-collapse .navbar-sidenav {
+    background: #f8f9fa;
+  }
+  #mainNav.navbar-light .navbar-collapse .navbar-sidenav li.active a {
+    color: #000 !important;
+    background-color: #e9ecef;
+  }
+  #mainNav.navbar-light .navbar-collapse .navbar-sidenav li.active a:focus, #mainNav.navbar-light .navbar-collapse .navbar-sidenav li.active a:hover {
+    color: #000;
+  }
+  #mainNav.navbar-light .navbar-collapse .navbar-sidenav > .nav-item .sidenav-second-level,
+  #mainNav.navbar-light .navbar-collapse .navbar-sidenav > .nav-item .sidenav-third-level {
+    background: #f8f9fa;
+  }
+}
+#mainNav.navbar-dark .navbar-collapse .navbar-sidenav {
+    height: 160vh; /* Set the height to 100% of the viewport height */
+    background: #343a40;
+}
+
+
+/* content wrapper */
+@media (min-width: 992px) {
+  .content-wrapper {
+    margin-left: 250px;
+  }
+}
+
+#sidenavToggler i {
+  font-weight: 800;
+}
+.content-wrapper {
+  overflow-x: hidden;
+  background: white;
+}
+.card-body {
+            padding: 50px; /* Adjust padding as needed */
+        }
+        .h1 {
+            right: 50px;
+        }
+</style>
+
+
+{% endblock %}

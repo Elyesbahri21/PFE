@@ -56,6 +56,13 @@ class Contrat
      */
     private $brochure;
 
+ /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Produit", inversedBy="contrats")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $produit;
+
+
     public function getId(): ?int
     {
         return $this->id;
@@ -155,5 +162,23 @@ class Contrat
         } else {
             return 'Disponible';
         }
+    }
+
+    public function __toString()
+    {
+        return $this->getNom(); 
+    }
+
+
+    public function getProduit(): ?Produit
+    {
+        return $this->produit;
+    }
+
+    public function setProduit(?Produit $produit): self
+    {
+        $this->produit = $produit;
+
+        return $this;
     }
 }

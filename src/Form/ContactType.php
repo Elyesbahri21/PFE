@@ -14,13 +14,13 @@ class ContactType extends AbstractType
     {
         $builder
             ->add('email', null, [
-                'attr' => ['class' => 'form-control'] // Add CSS class to email field
+                'attr' => ['class' => 'form-control'] 
             ])
             ->add('content', TextareaType::class, [
-                'attr' => ['class' => 'form-control'] // Add CSS class to content field
+                'attr' => ['class' => 'form-control'] 
             ])
             ->add('envoyer', SubmitType::class, [
-                'attr' => ['class' => 'btn btn-primary'] // Add CSS class to submit button
+                'attr' => ['class' => 'btn btn-primary'] 
             ])
         ;
     }

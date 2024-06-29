@@ -24,13 +24,12 @@ class RegistrationFormType extends AbstractType
 
         ->add('roles', ChoiceType::class, [
             'choices' => [
-                'User' => 'ROLE_USER',
                 'Admin' => 'ROLE_ADMIN',
                 'Gestionnaire' => 'ROLE_GESTIONNAIRE',
                 'Responsable contrat' => 'ROLE_RESPONSABLE',
             ],
             'multiple' => true, // if the user can have multiple roles
-            'expanded' => false, 
+            'expanded' => true, 
         ])
 
             ->add('email')

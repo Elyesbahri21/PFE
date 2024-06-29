@@ -13,12 +13,16 @@ class DashboardUtilisateursController extends AbstractController
     #[Route('/dashboard/utilisateurs', name: 'app_dashboard_utilisateurs')]
     public function index(UserRepository $userRepository): Response
     {
-
+        $totalUsers = $userRepository->count([]); 
         $users = $userRepository->findAll();
+
+
+        
 
         return $this->render('dashboard/dashboard_utilisateurs.html.twig', [
             'controller_name' => 'DashboardController',
             'users' => $users,
+            'totalUsers' => $totalUsers,
 
         ]);
     }
