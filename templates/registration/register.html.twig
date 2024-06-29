@@ -1,0 +1,198 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Register{% endblock %}
+
+{% block body %}
+
+{# Display flash messages #}
+{% for flash_message in app.flashes('success') %}
+    <div class="alert alert-success" role="alert">
+        {{ flash_message }}
+    </div>
+{% endfor %}
+{% for flash_error in app.flashes('verify_email_error') %}
+    <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+{% endfor %}
+
+<section class="vh-100" style="background-color: #08A7F0;">
+    <div class="container h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-lg-12 col-xl-11">
+                <div class="card text-black form-container">
+                    <div class="card-body p-md-5">
+                        <div class="row justify-content-center">
+                            <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
+                                <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Inscription</p>
+
+                                <form action="{{ path('app_register') }}" method="post" class="form login">
+                                    <div class="mb-4">
+                                        <label for="register__email" class="form-label">Email</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text" id="register__email_prepend">
+                                                    <i class="fas fa-envelope"></i>
+                                                </span>
+                                            </div>
+                                            {{ form_widget(registrationForm.email, { 'attr': {'id': 'register__email', 'placeholder': 'Email', 'class':"form-control", 'aria-describedby': 'register__email_prepend'} }) }}
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-4">
+                                        <label for="register__roles" class="form-label">Role</label>
+                                        <div class="dropdown">
+                                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                Choisir roles
+                                            </button>
+                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                {% for choice in registrationForm.roles.vars.choices %}
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" value="{{ choice.value }}" id="role_{{ choice.value }}" name="{{ registrationForm.roles.vars.full_name }}[]" 
+                                                            {% if choice.value in registrationForm.roles.vars.value %}checked{% endif %}>
+                                                        <label class="form-check-label" for="role_{{ choice.value }}">
+                                                            {{ choice.label }}
+                                                        </label>
+                                                    </div>
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-4">
+                                        <label for="register__prenom" class="form-label">Prenom</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text" id="register__prenom_prepend">
+                                                    <i class="fas fa-user"></i>
+                                                </span>
+                                            </div>
+                                            {{ form_widget(registrationForm.prenom, { 'attr': {'id': 'register__prenom', 'placeholder': 'Prenom', 'class':"form-control", 'aria-describedby': 'register__prenom_prepend'} }) }}
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-4">
+                                        <label for="register__nom" class="form-label">Nom</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text" id="register__nom_prepend">
+                                                    <i class="fas fa-user"></i>
+                                                </span>
+                                            </div>
+                                            {{ form_widget(registrationForm.nom, { 'attr': {'id': 'register__nom', 'placeholder': 'Nom', 'class':"form-control", 'aria-describedby': 'register__nom_prepend'} }) }}
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-4">
+                                        <label for="register__telephone" class="form-label">Telephone</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text" id="register__telephone_prepend">
+                                                    <i class="fas fa-phone"></i>
+                                                </span>
+                                            </div>
+                                            {{ form_widget(registrationForm.telephone, { 'attr': {'id': 'register__telephone', 'placeholder': 'Telephone', 'class':"form-control", 'aria-describedby': 'register__telephone_prepend'} }) }}
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-4">
+                                        <label for="register__plainPassword" class="form-label">Mot de passe</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text" id="register__plainPassword_prepend">
+                                                    <i class="fas fa-lock"></i>
+                                                </span>
+                                            </div>
+                                            {{ form_widget(registrationForm.plainPassword, { 'attr': {'id': 'register__plainPassword', 'placeholder': 'Mot de passe', 'class':"form-control", 'aria-describedby': 'register__plainPassword_prepend'} }) }}
+                                        </div>
+                                    </div>
+
+                                    <div class="form-check d-flex justify-content-center mb-5">
+                                        <div class="agree">
+                                            {{ form_widget(registrationForm.agreeTerms) }}
+                                            {{ form_label(registrationForm.agreeTerms, 'Jaccepte les termes et conditions') }}
+                                        </div>
+                                    </div>
+
+                                    <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
+                                        <button type="submit" class="btn btn-primary btn-lg">Register</button>
+                                    </div>
+                                    {{ form_widget(registrationForm._token) }}
+                                </form>
+
+                                <p class="text-center">Already a member? <a href="{{ path('app_login') }}">Sign in now</a> <svg class="icon">
+                                    <use xlink:href="#icon-arrow-right"></use>
+                                </svg></p>
+                            </div>
+                            <div class="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2">
+                                <img src="{{ asset('code/inscri.png') }}" class="img-fluid" alt="Sample image">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<style>
+
+.form-container {
+    background: #fff;
+    border-radius: 25px;
+    padding: 2rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.form-container .form-label {
+    font-weight: bold;
+}
+.form-container .input-group-text {
+    background-color: #08A7F0;
+    border: none;
+    color: #fff;
+}
+.form-container .btn-primary {
+    background-color: #08A7F0;
+    border: none;
+}
+.form-container .btn-primary:hover {
+    background-color: #007BB5;
+}
+.form-container .dropdown-toggle {
+    width: 100%;
+    text-align: left;
+    background-color: #fff;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    padding: 0.375rem 0.75rem;
+    color: #495057;
+}
+.form-container .dropdown-toggle::after {
+    margin-left: auto;
+}
+
+.form-container .dropdown-menu {
+    width: 100%;
+    border-radius: 0.25rem;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}
+
+
+.form-container .dropdown-menu .form-check {
+    padding: 0.375rem 0.75rem;
+}
+
+
+.form-container .agree {
+    display: flex;
+    align-items: center;
+}
+
+.form-container .agree input {
+    margin-right: 0.5rem;
+}
+
+</style>
+
+
+{% endblock %}

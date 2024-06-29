@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diagramme MVC</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="conteneur">
+        <h1>Diagramme MVC</h1>
+        <div class="modele">
+            <h2>Modèle</h2>
+            <ul>
+                <li>Données</li>
+                <li>Règles métier</li>
+                <li>Opérations de base de données</li>
+            </ul>
+        </div>
+        <div class="vue">
+            <h2>Vue</h2>
+            <ul>
+                <li>Interface utilisateur</li>
+                <li>Formulaires</li>
+                <li>Rapports</li>
+                <li>Alertes</li>
+            </ul>
+        </div>
+        <div class="controleur">
+            <h2>Contrôleur</h2>
+            <ul>
+                <li>Traitement des requêtes</li>
+                <li>Récupération des données</li>
+                <li>Formatage des données</li>
+            </ul>
+        </div>
+        <div class="fleches">
+            <img src="fleches.png" alt="Flèches MVC">
+        </div>
+    </div>
+
+
+<style>
+    body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+}
+
+.conteneur {
+    border: 1px solid #ccc;
+    padding: 20px;
+    width: 800px;
+}
+
+h1 {
+    text-align: center;
+}
+
+.modele, .vue, .controleur {
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin: 10px;
+    width: 250px;
+    float: left;
+}
+
+.fleches {
+    text-align: center;
+}
+
+img {
+    width: 200px;
+}
+
+</style>
+
+</body>
+</html>

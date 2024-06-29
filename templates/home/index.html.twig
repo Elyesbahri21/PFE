@@ -1,0 +1,378 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Acceuil{% endblock %}
+
+{% block body %}
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="{{ asset('code/navbarcss.css') }}">
+<link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Josefin Sans" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="{{ asset('bundles/mercuryseriesflashy/css/flashy.css') }}">
+
+   </head>
+<body>
+  <nav>
+    <div class="nav-content">
+      <div class="logo">
+        <a href="#">ContractLab.</a>
+      </div>
+      <ul class="nav-links">
+            <li><a href="http://127.0.0.1:8000/">Acceuil</a></li>
+            <li><a href="http://127.0.0.1:8000/contrat">Contrats</a></li>
+            <li><a href="http://127.0.0.1:8000/about">About</a></li>
+            <li><a href="http://127.0.0.1:8000/contact">Contact</a></li>
+            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+            <li>
+            <div class="dropdown">
+            <button class="fas fa-user dropdown-toggle" id="dropdownMenuButton"><span class="user-name">  {{ app.user.nom }}</span></button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <a class="dropdown-item" href="http://127.0.0.1:8000/profile">  Profile</a>
+              <a class="dropdown-item" href="http://127.0.0.1:8000/logout">  Logout</a>
+            </div>
+            </div>
+            </li>
+            {% endif %}
+            {% if not is_granted('IS_AUTHENTICATED_FULLY') %}
+        <li><a href="http://127.0.0.1:8000/login">Login</a></li>
+           {% endif %}
+      </ul>
+    </div>
+  </nav>
+
+
+
+
+
+
+
+
+<br>
+  <header class="header">
+	<div class="brand-box"><span class="brand"></span></div>
+	<div class="text-box">
+		<h1 class="heading-primary">
+			<span class="heading-primary-main">All your contracts</span>
+			<span class="heading-primary-sub">in one place</span>
+		</h1>
+		<a href="#" class="btn btn-white btn-animated">Get started</a>
+	</div>
+</header>
+<br><br> 
+<div class="container">
+  <div style="display:flex;flex-direction:row;">
+    <div class="col-12">
+      <h1>Votre centre de documents</h1>
+      <h2>Grâce au système de gestion de documents de CONTRACTLAB, trouver vos documents est plus facile que jamais. </h2>
+    </div>
+  </div>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-3 col-md-6">
+      <div class="card h-100"> <img class="card-img-top" src="https://www.spektrix.com/hubfs/Clients/the-wedding-gift-contemporary-american-theatre-festival-credit-seth-freeman-600-188.jpg" alt="A queen in a red dress and crown is surrounded by courtiers onstage at Contemporary American Theatre Festival">
+        <div class="card-block">
+          <h5>CONTACT US !</h5>
+			 <p align="center" class="card-text">Get in touch with us, we are available 24/7.</p>
+          <button type="button" class="btn btn-secondary" href="contact" >Contact us</button>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-3 col-md-6">
+      <div class="card h-100"> <img class="card-img-top" src="https://www.spektrix.com/hubfs/Clusters/Marketing/working-together-increase-revenue-600-188.jpg" alt="A queen in a red dress and crown is surrounded by courtiers onstage at Contemporary American Theatre Festival">
+        <div class="card-block">
+          <h5>Working Collaboratively to Increase Revenue</h5>
+			 <p class="card-text">Inspiration and ideas to get your whole team behind your income targets.</p>
+          <button type="button" class="btn btn-secondary">Download Now!</button>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-3 col-md-6">
+      <div class="card h-100"> <img class="card-img-top" src="https://www.spektrix.com/hubfs/Clients/opera-holland-park-pirates-penzance-credit-ali-wright-600-188.jpg" alt="An audience gathered on picnic rugs in an arched stone courtyard on a sunny day, enjoying live outdoor opera">
+        <div class="card-block">
+          <h5>Spektrix Data Insights</h5>
+			  <p class="card-text">Data points and best practice ideas to help you benchmark and grow success.</p>
+          <button type="button" class="btn btn-info">Updated for 2024!</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <br><br><br><br><br><br><br><br><br><br>
+  <footer class="footer">
+      <div class="footer__addr">
+        <img class="img-footer"src="code/progress.png" >
+        <h2>Contact</h2>
+        <address>5534 Tunis , Tunisia<br> <a class="footer__btn" href="ContractLab@gmail.com">Email Us</a></address>
+      </div>
+      <ul class="footer__nav">
+        <li class="nav__item">
+          <h2 class="nav__title">Media</h2>
+          <ul class="nav__ul">
+            <li><a href="#">Online</a></li>
+            <li><a href="#">Print</a></li>
+            <li><a href="#">Alternative Ads</a></li>
+         </ul>
+        </li>
+        <li class="nav__item">
+          <h2 class="nav__title">Legal</h2>
+          <ul class="nav__ul">
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms of Use</a></li>
+            <li><a href="#">Sitemap</a></li>
+          </ul>
+        </li>
+        <li class="nav__item">
+          <h2 class="nav__title">Legal</h2>
+          <ul class="nav__ul">
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms of Use</a></li>
+            <li><a href="#">Sitemap</a></li>
+          </ul>
+        </li>
+      </ul>
+      <div class="legal"><p>&copy; 2024. All rights reserved.</p></div>
+    </footer>
+
+<style>
+
+
+
+  .dropdown {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .dropdown-toggle {
+    background-color: #f1f1f1;
+    color: #333;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .dropdown-menu {
+    display: none;
+    position: absolute;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    z-index: 1;
+  }
+  
+  .dropdown-menu a {
+    display: block;
+    padding: 10px 20px;
+    color: #333;
+    text-decoration: none;
+  }
+  
+  .dropdown-menu a:hover {
+    background-color: #f1f1f1;
+  }
+  
+body {
+    font-family: 'Lato', sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 1.7;
+    color: #eee;
+}
+.header {
+    height: 70vh;
+    background-image: 
+    linear-gradient(to right bottom, rgba(76, 216, 255, 0.8),rgba(30, 108, 217, 0.8)),url('https://hbr.org/resources/images/article_assets/2022/10/Oct22_15_200165792-001.jpg');
+    background-position: top;
+    position: relative;
+    clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%);
+}
+.brand-box {
+    position: absolute;
+    top: 40px;
+    left: 40px;
+}
+.brand { font-size: 20px; }
+.text-box {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+.heading-primary {
+    color: #fff;
+    text-transform: uppercase;
+
+    backface-visibility: hidden;
+    margin-bottom: 30px;
+}
+.heading-primary-main {
+    display: block;
+    font-size: 26px;
+    font-weight: 400;
+    letter-spacing: 5px;
+}
+.heading-primary-sub {
+    display: block;
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 7.4px;
+}
+.btn:link,
+.btn:visited {
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 10px 20px;
+    display: inline-block;
+    border-radius: 100px;
+    transition: all .2s;
+    position: relative;
+}
+.btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+.btn:active {
+    transform: translateY(-1px);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+.btn-white {
+    background-color: #fff;
+    color: #777;
+  font-size: 14px;
+}
+body, p {
+	font-family:'Nunito';font-size: 22px;
+    font-size: 14px;
+    font-weight: 400;
+}
+h1 {
+    color: #28a745;
+    font-family: Josefin Sans;
+    font-size: 50px;
+    font-style: normal;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 1.1em;
+    text-decoration: none;
+    text-transform: none;
+}
+a {
+    -webkit-transition: .25s all;
+    transition: .25s all;
+}
+.card {
+    padding-left: auto;
+    padding-right: auto;
+    margin-top: 30px;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+    -webkit-transition: .25s box-shadow;
+    transition: .25s box-shadow;
+}
+.card:focus, .card:hover {
+    box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15);
+}
+.card-inverse .card-img-overlay {
+    background-color: rgba(51, 51, 51, 0.85);
+    border-color: rgba(51, 51, 51, 0.85);
+}
+.card-img-top {
+    max-width: 100%;
+    height: auto;
+	border-top-right-radius: calc(.75rem - 3px);
+    border-top-left-radius: calc(.75rem - 3px);
+}
+.card-block {
+    -webkit-box-flex: 1;
+    -webkit-flex: 1 1 auto;
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    padding: 1.25rem;
+}
+.col-lg-3 {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+.col-12 {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+	margin-top: 20px;
+}
+.col-lg-3 {
+    padding-right: 15px;
+    padding-left: 15px;
+}
+.row {
+   display:flex;
+   flex-direction:row;
+}
+.btn-secondary {
+    color: #fff;
+    background-color: #6c757d;
+    border-color: #6c757d;
+    font-family: 'Nunito';font-size: 22px;
+}
+.btn-info {
+    color: #fff;
+    background-color: #17a2b8;
+    border-color: #17a2b8;
+}
+.container {
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    padding-right: 50px;
+    padding-left: 50px;
+}
+.card-block {
+    padding-right: 10px;
+    padding-left: 10px;
+}
+.img-footer{ width:150px; }
+
+
+
+
+
+
+</style>
+
+  <script type = "text/javascript" src="logJS.js">
+    var TooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+  var TooltipList = TooltipTriggerList.map(function (TooltipTriggerEl) {
+    return new bootstrap.Tooltip(TooltipTriggerEl);
+  });
+  var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'));
+  var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
+    return new bootstrap.Popover(popoverTriggerEl);
+  });
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+
+
+
+<!-- Flashy depends on jQuery -->
+    <script src="//code.jquery.com/jquery.js"></script>
+    <!-- Load Flashy default JavaScript -->
+    <script src="{{ asset('bundles/mercuryseriesflashy/js/flashy.js') }}"></script>
+    <!-- Include Flashy default partial -->
+    {{ include('@MercurySeriesFlashy/flashy.html.twig') }}
+
+
+
+
+
+
+</body>
+</html>
+{% endblock %}

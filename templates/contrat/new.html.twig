@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouveau Contrat{% endblock %}
+
+{% block body %}
+
+<div class="container mt-4">
+    <h1>Creer un nouveau Contrat</h1>
+<div class="card">
+    {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <br>
+        <button class="btn btn-outline-secondary">Enregistrer</button>
+    {{ form_end(form) }}
+
+
+    
+    <br>
+    <a class="btn btn-secondary gg" href="{{ path('app_contrat_index') }}">Retour a la liste</a>
+</div>
+</div>
+
+<style>
+
+.card{
+    margin-top: 20px;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.gg {
+    width: 15%;
+}
+</style>
+
+
+{% endblock %}

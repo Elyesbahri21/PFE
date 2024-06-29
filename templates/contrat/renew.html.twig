@@ -1,0 +1,32 @@
+{# templates/contrat/renew.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Renouvellement{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <h1 class="my-4">Renouvellement du Contrat</h1>
+
+            {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+                <div class="form-group">
+                    {{ form_label(form.date_debut, null, {'label_attr': {'class': 'control-label'}}) }}
+                    {{ form_widget(form.date_debut, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="form-group">
+                    {{ form_label(form.date_fin, null, {'label_attr': {'class': 'control-label'}}) }}
+                    {{ form_widget(form.date_fin, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Renouveler contrat</button>
+                    <a href="{{ path('app_contrat_index') }}" class="btn btn-secondary">Back to list</a>
+        
+                </div>
+            {{ form_end(form) }}
+        </div>
+
+
+    </div>
+
+{% endblock %}

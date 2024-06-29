@@ -1,0 +1,173 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}User{% endblock %}
+
+{% block body %}
+
+<style>
+    .table {
+        width: 100%;
+        max-width: 100%;
+        margin-bottom: 1rem;
+        background-color: transparent;
+        border-collapse: collapse;
+    }
+
+    .table th,
+    .table td {
+        padding: 0.75rem;
+        vertical-align: top;
+        border-top: 1px solid #dee2e6;
+    }
+
+    .table thead th {
+        vertical-align: bottom;
+        border-bottom: 2px solid #dee2e6;
+    }
+
+    .table tbody + tbody {
+        border-top: 2px solid #dee2e6;
+    }
+
+    .table .table {
+        background-color: #fff;
+    }
+
+    .table-sm th,
+    .table-sm td {
+        padding: 0.3rem;
+    }
+
+    .table-bordered {
+        border: 1px solid #dee2e6;
+    }
+
+    .table-bordered th,
+    .table-bordered td {
+        border: 1px solid #dee2e6;
+    }
+
+    .table-bordered thead th,
+    .table-bordered thead td {
+        border-bottom-width: 2px;
+    }
+
+    .table-striped tbody tr:nth-of-type(odd) {
+        background-color: rgba(0, 0, 0, 0.05);
+    }
+
+    .table-hover tbody tr:hover {
+        background-color: rgba(0, 0, 0, 0.075);
+    }
+
+    .table-primary,
+    .table-primary > th,
+    .table-primary > td {
+        background-color: #b8daff;
+    }
+
+    .table-hover .table-primary:hover {
+        background-color: #9fcdff;
+    }
+
+    .table-hover .table-primary:hover > td,
+    .table-hover .table-primary:hover > th {
+        background-color: #9fcdff;
+    }
+
+    h1 {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+        font-weight: 500;
+        line-height: 1.2;
+        color:#1094DB;
+    }
+
+    body {
+        font-family: Arial, sans-serif;
+    }
+
+    .btn {
+        display: inline-block;
+        font-weight: 400;
+        color: #FFFFFF;
+        text-align: center;
+        vertical-align: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        background-color: #1094DB;
+        border: 1px solid transparent;
+        padding: 0.375rem 0.75rem;
+        font-size: 1rem;
+        line-height: 1.5;
+        border-radius: 0.25rem;
+        transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+        text-decoration: none;
+    }
+
+    .btn:hover {
+        color: #0056b3;
+        background-color: #30FF59;
+        border-color: transparent;
+        text-decoration: none;
+    }
+
+    .btn-back {
+        background-color: #FFFFF;
+    }
+
+    .btn-edit {
+        background-color: #FFfff;
+    }
+
+    .btn-delete:hover {
+        background-color: #D10000;
+        color: #0056b3;
+        border-color: transparent;
+        text-decoration: none;
+    }
+
+    .btn {
+        margin-top: 1rem;
+        margin-right: 0.5rem;
+    }
+
+</style>
+
+    <h1>User</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ user.id }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ user.email }}</td>
+            </tr>
+            <tr>
+                <th>Prenom</th>
+                <td>{{ user.prenom }}</td>
+            </tr>           
+             <tr>
+                <th>Nom</th>
+                <td>{{ user.nom }}</td>
+            </tr>           
+            <tr>
+                <th>Téléphone</th>
+                <td>{{ user.telephone }}</td>
+            </tr>
+            <tr>
+                <th>IsVerified</th>
+                <td>{{ user.isVerified ? 'Yes' : 'No' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_admin_user_index') }}" class="btn btn-back" >back to list</a>
+    <a href="{{ path('app_admin_user_edit', {'id': user.id}) }}" class="btn btn-edit" >edit</a>
+    
+{% endblock %}

@@ -1,0 +1,194 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Profile{% endblock %}
+
+{% block head %}
+        <meta charset="UTF-8">
+        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
+        {% block stylesheets %}
+            {{ encore_entry_link_tags('app') }}
+                <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/axentix@2.4.0/dist/axentix.min.css">
+                <link rel="stylesheet" href="{{ asset('code/navbarcss.css') }}">
+    
+        {% endblock %}
+
+        {% block javascripts %}
+            {{ encore_entry_script_tags('app') }}
+        {% endblock %}
+   {% endblock %}
+
+{% block body %}
+<div class="layout-sidenav">
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+<header>
+ <nav>
+    <div class="nav-content">
+      <div class="logo">
+        <a href="#">ContractLab.</a>
+      </div>
+      <ul class="nav-links">
+            <li><a href="http://127.0.0.1:8000/">Acceuil</a></li>
+            <li><a href="#">Contrats</a></li>
+            <li><a href="profile">Profile</a></li>
+            <li><a href="http://127.0.0.1:8000/about">About</a></li>
+            <li><a href="http://127.0.0.1:8000/contact">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+    </header>
+<br><br><br><br>
+    <main>
+
+  <section style="background-color: #eee;">
+  <div class="container py-5">
+   <h2> Profile </h2>
+    <div class="row">
+      <div class="col-lg-4">
+        <div class="card mb-4">
+          <div class="card-body text-center">
+            <img src="code/bahri.jpg" alt="avatar"
+              class="rounded-circle img-fluid" style="width: 150px;">
+            <h5 class="my-3">{{app.user.prenom}} {{app.user.nom}}</h5>
+            <p class="text-muted mb-1">Admin</p><br>
+            <div class="d-flex justify-content-center mb-2">
+              <a type="button"  class="btn btn-primary" href="reset-password">reset password</a>
+              <a type="button"  class="btn btn-outline-primary ms-1" href="contact">contact</a>
+            </div>
+          </div>
+        </div>
+        <div class="card mb-4 mb-lg-0">
+          <div class="card-body p-0">
+            <ul class="list-group list-group-flush rounded-3">
+              <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                <i class="fas fa-globe fa-lg text-warning"></i>
+                <p class="mb-0">https://github.com</p>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                <i class="fab fa-github fa-lg" style="color: #333333;"></i>
+                <p class="mb-0">Facebook</p>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                <i class="fab fa-twitter fa-lg" style="color: #55acee;"></i>
+                <p class="mb-0">Linkedin</p>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-8">
+        <div class="card mb-4">
+          <div class="card-body">
+          <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Prénom</p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0">{{app.user.prenom}}</p>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Nom</p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0">{{app.user.nom}}</p>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Email</p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0">{{app.user.email}}</p>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Téléphone</p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0">{{app.user.telephone}}</p>
+              </div>
+            </div>
+            </div>
+            <div class="row">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+ <footer class="footer">
+      <div class="footer__addr">
+        <img src="Images/contractlab.JPG">
+        <h2>Contact</h2>
+        <address>
+          5534 Tunis , Tunisia<br> 
+          <a class="footer__btn" href="ContractLab@gmail.com">Email Us</a>
+        </address>
+      </div>
+      <ul class="footer__nav">
+        <li class="nav__item">
+          <h2 class="nav__title">Media</h2>
+          <ul class="nav__ul">
+            <li>
+              <a href="#">Online</a>
+            </li>
+            <li>
+              <a href="#">Print</a>
+            </li>
+            <li>
+              <a href="#">Alternative Ads</a>
+            </li>
+          </ul>
+        </li>
+        <li class="nav__item">
+          <h2 class="nav__title">Legal</h2>
+          <ul class="nav__ul">
+            <li>
+              <a href="#">Privacy Policy</a>
+            </li>
+            <li>
+              <a href="#">Terms of Use</a>
+            </li>
+            <li>
+              <a href="#">Sitemap</a>
+            </li>
+          </ul>
+        </li>
+        <li class="nav__item">
+          <h2 class="nav__title">Legal</h2>
+          <ul class="nav__ul">
+            <li>
+              <a href="#">Privacy Policy</a>
+            </li>
+            <li>
+              <a href="#">Terms of Use</a>
+            </li>
+            <li>
+              <a href="#">Sitemap</a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+      <div class="legal">
+        <p>&copy; 2024. All rights reserved.</p>
+      </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/axentix@2.4.0/dist/axentix.min.js"></script>
+    </div>
+
+{% endblock %}

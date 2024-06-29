@@ -1,0 +1,179 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gestion Utilisateurs{% endblock %}
+
+{% block body %}
+
+<link rel="stylesheet" href="{{ asset('code/navbarcss.css') }}">
+<br>
+    <h1>Utilisateurs</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Email</th>
+                <th>Nom et prénom</th>
+                <th>IsVerified</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for user in users %}
+            <tr>
+                <td>{{ user.id }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.prenom }} {{ user.nom }}</td>
+                <td>{{ user.isVerified ? 'Yes' : 'No' }}</td>
+                <td>
+                    <a href="{{ path('app_admin_user_show', {'id': user.id}) }}" class="btn-link">Afficher</a>
+                    <a href="{{ path('app_admin_user_edit', {'id': user.id}) }}" class="btn-link">Modifier</a>
+                     {{ include('admin_user/_delete_form.html.twig') }} 
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_admin_user_new') }}" class="btn-link">Creer un nouveau utilisateur</a>
+
+<br><br><br><br>
+<footer class="footer">
+      <div class="footer__addr">
+        <img class="img-footer"src="code/progress.png" >
+        <h2>Contact</h2>
+        <address>5534 Tunis , Tunisia<br> <a class="footer__btn" href="ContractLab@gmail.com">Email Us</a></address>
+      </div>
+      <ul class="footer__nav">
+        <li class="nav__item">
+          <h2 class="nav__title">Media</h2>
+          <ul class="nav__ul">
+            <li><a href="#">Online</a></li>
+            <li><a href="#">Print</a></li>
+            <li><a href="#">Alternative Ads</a></li>
+         </ul>
+        </li>
+        <li class="nav__item">
+          <h2 class="nav__title">Legal</h2>
+          <ul class="nav__ul">
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms of Use</a></li>
+            <li><a href="#">Sitemap</a></li>
+          </ul>
+        </li>
+        <li class="nav__item">
+          <h2 class="nav__title">Legal</h2>
+          <ul class="nav__ul">
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms of Use</a></li>
+            <li><a href="#">Sitemap</a></li>
+          </ul>
+        </li>
+      </ul>
+      <div class="legal"><p>&copy; 2024. All rights reserved.</p></div>
+    </footer>
+
+
+<style>
+
+.table {
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 1rem;
+    background-color: transparent;
+}
+.table th,
+.table td {
+    padding: 0.75rem;
+    vertical-align: top;
+    border-top: 1px solid #dee2e6;
+}
+.table thead th {
+    vertical-align: bottom;
+    border-bottom: 2px solid #dee2e6;
+}
+.table tbody + tbody {
+    border-top: 2px solid #dee2e6;
+}
+.table .table {
+    background-color: #fff;
+}
+.table-sm th,
+.table-sm td {
+    padding: 0.3rem;
+}
+.table-bordered {
+    border: 1px solid #dee2e6;
+}
+.table-bordered th,
+.table-bordered td {
+    border: 1px solid #dee2e6;
+}
+.table-bordered thead th,
+.table-bordered thead td {
+    border-bottom-width: 2px;
+}
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+.table-hover tbody tr:hover {
+    background-color: rgba(0, 0, 0, 0.075);
+}
+.table-primary,
+.table-primary > th,
+.table-primary > td {
+    background-color: #b8daff;
+}
+.table-hover .table-primary:hover {
+    background-color: #9fcdff;
+}
+.table-hover .table-primary:hover > td,
+.table-hover .table-primary:hover > th {
+    background-color: #9fcdff;
+}
+    a {
+        margin-top: 1rem;
+        display: inline-block;
+    }
+    .btn-link {
+        display: inline-block;
+        font-weight: 400;
+        color: #FFFFFF;
+        text-align: center;
+        vertical-align: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        background-color: #1094DB;
+        border: 1px solid transparent;
+        padding: 0.375rem 0.75rem;
+        font-size: 1rem;
+        line-height: 1.5;
+        border-radius: 0.25rem;
+        transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+        text-decoration: none;
+    }
+    .btn-link:hover {
+        color: #0056b3;
+        background-color: #30FF59;
+        border-color: transparent;
+        text-decoration: none;
+    }
+    h1 {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+        font-weight: 500;
+        line-height: 1.2;
+        color:#1094DB;
+    }
+    body {
+        font-family: Arial, sans-serif;
+    }
+
+</style>
+
+{% endblock %}
