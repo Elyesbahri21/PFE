@@ -1,5 +1,53 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <br>
-    <button class="btn btn-primary">{{ button_label|default('Save') }}</button>
+    {{ form_errors(form) }}
+
+    <div class="form-group">
+        {{ form_label(form.nom, 'Nom', {'label_attr': {'class': 'form-label'}}) }}
+        {% if form.nom.vars.required %}
+            <span style="color: red;">*</span>
+        {% endif %}
+        {{ form_widget(form.nom, {'attr': {'class': 'form-control'}}) }}
+    </div>
+
+    <div class="form-group">
+        {{ form_label(form.entreprise, 'Entreprise', {'label_attr': {'class': 'form-label'}}) }}
+        {% if form.entreprise.vars.required %}
+            <span style="color: red;">*</span>
+        {% endif %}
+        {{ form_widget(form.entreprise, {'attr': {'class': 'form-control'}}) }}
+    </div>
+
+    <div class="form-group">
+        {{ form_label(form.date_debut, 'Date debut', {'label_attr': {'class': 'form-label'}}) }}
+        {% if form.date_debut.vars.required %}
+            <span style="color: red;">*</span>
+        {% endif %}
+        {{ form_widget(form.date_debut, {'attr': {'class': 'form-control'}}) }}
+    </div>
+
+    <div class="form-group">
+        {{ form_label(form.date_fin, 'Date fin', {'label_attr': {'class': 'form-label'}}) }}
+        {% if form.date_fin.vars.required %}
+            <span style="color: red;">*</span>
+        {% endif %}
+        {{ form_widget(form.date_fin, {'attr': {'class': 'form-control'}}) }}
+    </div>
+
+    <div class="form-group">
+        {{ form_label(form.produit, 'Produit', {'label_attr': {'class': 'form-label'}}) }}
+        {% if form.produit.vars.required %}
+            <span style="color: red;">*</span>
+        {% endif %}
+        {{ form_widget(form.produit, {'attr': {'class': 'form-control'}}) }}
+    </div>
+
+    <div class="form-group">
+        {{ form_label(form.brochure, 'Contrat (PDF file)', {'label_attr': {'class': 'form-label'}}) }}
+        {% if form.brochure.vars.required %}
+            <span style="color: red;" class="required">*</span>
+        {% endif %}
+        {{ form_widget(form.brochure, {'attr': {'class': 'form-control-file'}}) }}
+    </div>
+
+    <button type="submit" class="btn btn-primary">{{ button_label|default('Save') }}</button>
 {{ form_end(form) }}

@@ -20,26 +20,32 @@ class UserType extends AbstractType
         $builder
             ->add('email', TextType::class, [
                 'attr' => ['class' => 'form-control'],
+                'required' => true,
             ])
             ->add('roles', ChoiceType::class, [
                 'choices' => [
                     'Admin' => 'ROLE_ADMIN',
                     'Gestionnaire' => 'ROLE_GESTIONNAIRE',
                     'Responsable contrat' => 'ROLE_RESPONSABLE',
+                    'required' => true,
                 ],
                 'multiple' => true,
                 'expanded' => true,
                 'label_attr' => ['class' => 'checkbox-inline'],
                 'attr' => ['class' => 'form-control'],
+                'required' => true,
             ])
             ->add('prenom', TextType::class, [
                 'attr' => ['class' => 'form-control'],
+                'required' => true,
             ])
             ->add('nom', TextType::class, [
                 'attr' => ['class' => 'form-control'],
+                'required' => true,
             ])
             ->add('telephone', TextType::class, [
                 'attr' => ['class' => 'form-control'],
+                'required' => true,
             ])
             ->add('plainPassword', PasswordType::class, [
                 'mapped' => false,
@@ -54,6 +60,7 @@ class UserType extends AbstractType
                         'max' => 4096,
                     ]),
                 ],
+                'required' => true,
             ]);
     }
 

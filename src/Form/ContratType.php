@@ -29,23 +29,34 @@ class ContratType extends AbstractType
             ->add('nom', TextType::class, [
                 'attr' => ['class' => 'form-control'],
                 'label_attr' => ['class' => 'form-label'],
-                
+                'constraints' => [
+                    new NotBlank(),
+                    new Length(['min' => 3, 'max' => 255]),
+                ],
+                'required' => true,
             ])
             ->add('entreprise', null, [
                 'attr' => ['class' => 'form-control'],
                 'label_attr' => ['class' => 'form-label'],
+                'constraints' => [
+                    new NotBlank(),
+                    new Length(['min' => 3, 'max' => 255]),
+                ],
+                'required' => true,
             ])
             ->add('date_debut', TypeDateType::class, [
                 'widget' => 'single_text',
                 'attr' => ['class' => 'form-control'],
                 'label' => 'Date debut',
                 'label_attr' => ['class' => 'form-label'],
+                'required' => true,
             ])
             ->add('date_fin', TypeDateType::class, [
                 'widget' => 'single_text',
                 'attr' => ['class' => 'form-control'],
                 'label' => 'Date fin',
                 'label_attr' => ['class' => 'form-label'],
+                'required' => true,
             ])
             
             
@@ -53,7 +64,10 @@ class ContratType extends AbstractType
                 'class' => Produit::class,
                 'choice_label' => 'nom',
                 'attr' => ['class' => 'form-control'],
-                // Other options as needed
+                'constraints' => [
+                    new NotBlank(),
+                    new Length(['min' => 3, 'max' => 255]),
+                ],
             ])
             ->add('brochure', FileType::class, [
                 'label' => 'Contrat (PDF file)',
@@ -71,6 +85,7 @@ class ContratType extends AbstractType
                         'mimeTypesMessage' => 'Please upload a valid PDF document',
                     ])
                 ],
+                'required' => true,
             ])
         ;
     }

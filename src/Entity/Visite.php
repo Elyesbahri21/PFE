@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\VisiteRepository")
- * @ORM\Table(name="visite")  // Adjust table name if necessary
+ * @ORM\Table(name="visite")  
  */
 class Visite
 {
@@ -50,7 +50,7 @@ class Visite
      * @ORM\JoinColumn(name="id", referencedColumnName="id")
      */
     private $responsable;
-
+    
     public function getResponsable(): ?User
     {
         return $this->responsable;

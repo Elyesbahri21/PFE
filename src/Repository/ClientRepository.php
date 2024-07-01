@@ -19,5 +19,8 @@ class ClientRepository extends ServiceEntityRepository
         parent::__construct($registry, Client::class);
     }
 
+
+
+    
     // Ajoutez vos méthodes personnalisées ici
 }

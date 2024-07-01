@@ -9,9 +9,9 @@
 
  <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container">
-        <a class="navbar-brand" href="http://127.0.0.1:8000/">
-            <img src="/code/contratlab-logo-png.png" style="height: 30px; width: auto;" alt="ContratLab Logo">
-        </a>
+         <a class="navbar-brand" href="http://127.0.0.1:8000/">
+                <img src="/code/contratlab-logo-png.png" alt="ContractLab Logo"  style="height: 30%; width: 25%; margin-left: 20px;">
+            </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -56,7 +56,6 @@
         </div>
     </div>
 </nav>
-<br>
 
 <body>
     <!-- Navigation-->
@@ -163,15 +162,58 @@
                 </div>
             </div>
 
-            <!-- Area Chart Example -->
-            <div class="card mb-3">
-                <div class="card-header">
-                    <i class="fa fa-user-circle-o" aria-hidden="true"></i> 
-                </div></div>
-                
-                <div class="card-body">
-                    <canvas id="myAreaChart" width="100%" height="30"></canvas>
-                </div> 
+                       <!-- Graphe-->
+           <div class="card mb-3">
+    <div class="card-header">
+        <i class="fa fa-area-chart"></i> Contrats Graphes</div>
+    <div class="card-body" style="display: flex; justify-content: center; align-items: center; flex-direction: column;">
+        <canvas id="myAreaChart" width="800" height="50" style="max-width: 50%;"></canvas>
+        <canvas id="myChart" width="1500" height="400" style="max-width: 50%;"></canvas>
+    </div>
+      <div class="card-footer small text-muted">Graphe Contrat</div>
+</div>
+<script>
+var ctx = document.getElementById('myChart').getContext('2d');
+var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: ['Contrats Totale', 'Contrats Disponible', 'Contrats indisponible'], // Labels for each data point
+        datasets: [{
+            label: 'Contrats Status', // Overall label for the dataset
+            data: [{{ totalContrats }}, {{ availableContrats }}, {{ unavailableContrats }}],
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        },
+        plugins: {
+            tooltip: {
+                callbacks: {
+                    label: function(tooltipItem) {
+                        var labels = ['Contrats Totale', 'Contrats Disponible', 'Contrats indisponible'];
+                        return labels[tooltipItem.dataIndex] + ': ' + tooltipItem.raw;
+                    }
+                }
+            }
+        }
+    }
+});
+</script>
+
 
 
 
@@ -211,6 +253,19 @@
 
 
 <style>
+
+.chart-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 400px; /* Adjust the height as needed */
+}
+  
+canvas {
+    max-width: 600px; /* Adjust the max-width as needed */
+    max-height: 400px; /* Adjust the max-height as needed */
+}
+
 
 .navbar-brand img {
             height: 30%;

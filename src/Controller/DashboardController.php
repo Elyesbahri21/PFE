@@ -20,13 +20,18 @@ class DashboardController extends AbstractController
         $totalUsers = count($users);
         $Clients = $ClientRepository->findAll();
         $totalClients = count($Clients);
+        $availableContrats = count(array_filter($contrats, fn($contrat) => $contrat->getStatus() === 'Disponible'));
+        $unavailableContrats = count(array_filter($contrats, fn($contrat) => $contrat->getStatus() === 'Indisponible'));
+
+
 
         return $this->render('dashboard/index.html.twig', [
             'controller_name' => 'DashboardController',
             'totalContrats' => $totalContrats,
             'totalUsers' => $totalUsers,
             'totalClients' => $totalClients,
-
+            'availableContrats' => $availableContrats,
+            'unavailableContrats' => $unavailableContrats,
         ]);
     }
 

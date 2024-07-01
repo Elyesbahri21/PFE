@@ -19,27 +19,31 @@ class ProduitType extends AbstractType
         $builder
         ->add('nom', TextType::class, [
             'attr' => ['class' => 'form-control'],
+            'required' => true, // Adding required attribute
             
         ])
         ->add('date_debut', DateType::class, [
             'widget' => 'single_text',
             'attr' => ['class' => 'form-control'],
+            'required' => true, // Adding required attribute
         ])
         ->add('date_fin', DateType::class, [
             'widget' => 'single_text',
             'attr' => ['class' => 'form-control'],
+            'required' => true, // Adding required attribute
         ])
-        ->add('contrat', EntityType::class, [
-            'class' => Contrat::class,
-            'choice_label' => 'nom',
-            'multiple' => true,
-            'expanded' => true,
-            'attr' => ['class' => 'form-control'],
-        ])
+        // ->add('contrat', EntityType::class, [
+        //     'class' => Contrat::class,
+        //     'choice_label' => 'nom',
+        //     'multiple' => true,
+        //     'expanded' => true,
+        //     'attr' => ['class' => 'form-control'],
+        // ])
         ->add('client', EntityType::class, [
             'class' => Client::class,
             'choice_label' => 'nom',
             'attr' => ['class' => 'form-control'],
+            'required' => true, // Adding required attribute
         ]);
         ;
     }

@@ -59,15 +59,25 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $telephone;
 
-    // /**
-    //  * @ORM\Column(type="boolean")
-    //  */
-    // private $isActive;
+    
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isActive = true;
 
-    // public function __construct()
-    // {
-    //     $this->isActive = true; // Actif par défaut
-    // }
+
+    public function getIsActive(): bool
+    {
+        return $this->isActive;
+    }
+
+    public function setIsActive(bool $isActive): self
+    {
+        $this->isActive = $isActive;
+        return $this;
+    }
+
+
 
 
     public function getId(): ?int
@@ -221,6 +231,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function __construct()
     {
         $this->visites = new ArrayCollection();
+        $this->isActive = true;
     }
 
     // other getters and setters
@@ -259,16 +270,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->nom ?? '';
     }
 
-    // public function getIsActive(): ?bool
-    // {
-    //     return $this->isActive;
-    // }
-
-    // public function setIsActive(bool $isActive): self
-    // {
-    //     $this->isActive = $isActive;
-
-    //     return $this;
-    // }
+    
 
 }

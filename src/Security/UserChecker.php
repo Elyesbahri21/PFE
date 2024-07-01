@@ -1,6 +1,5 @@
 <?php
-namespace App\Security;
-
+// src/Security/UserChecker.php
 use Symfony\Component\Security\Core\Exception\CustomUserMessageAccountStatusException;
 use Symfony\Component\Security\Core\User\UserCheckerInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -14,13 +13,12 @@ class UserChecker implements UserCheckerInterface
         }
 
         if (!$user->getIsActive()) {
-            // l'utilisateur est inactif, lancer une exception
-            throw new CustomUserMessageAccountStatusException('Your user account is disabled.');
+            throw new CustomUserMessageAccountStatusException('Your account is currently inactive.');
         }
     }
 
     public function checkPostAuth(UserInterface $user)
     {
-        // cette méthode peut rester vide
+        // This method can remain empty
     }
 }

@@ -95,6 +95,24 @@ class UserController extends AbstractController
     }
 
 
+    #[Route('/user/{id}/activate', name: 'app_user_activate', methods: ['POST'])]
+    public function activate(User $user, EntityManagerInterface $entityManager): Response
+    {
+        $user->setIsActive(true);
+        $entityManager->flush();
+    
+        return $this->redirectToRoute('app_user_index');
+    }
+    
+    #[Route('/user/{id}/deactivate', name: 'app_user_deactivate', methods: ['POST'])]
+    public function deactivate(User $user, EntityManagerInterface $entityManager): Response
+    {
+        $user->setIsActive(false);
+        $entityManager->flush();
+    
+        return $this->redirectToRoute('app_user_index');
+    }
+    
 
     
 }

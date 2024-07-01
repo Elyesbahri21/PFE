@@ -17,11 +17,16 @@ class DashboardGestionnaireController extends AbstractController
         $totalContrats = count($contrats);
         $produits = $produitRepository->findAll();
         $totalproduits = count($produits);
-        
+        $availableContrats = count(array_filter($contrats, fn($contrat) => $contrat->getStatus() === 'Disponible'));
+        $unavailableContrats = count(array_filter($contrats, fn($contrat) => $contrat->getStatus() === 'Indisponible'));
+ 
         return $this->render('dashboard gestionnaire/Dashboard_Gestionnaire.twig', [
             'controller_name' => 'DashboardController',
             'totalContrats' => $totalContrats,
             'totalproduits' => $totalproduits,
+            'availableContrats' => $availableContrats,
+            'unavailableContrats' => $unavailableContrats,
+
         ]);
     }
 

@@ -12,8 +12,8 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container">
         <a class="navbar-brand" href="http://127.0.0.1:8000/">
-            <img src="/code/contratlab-logo-png.png" style="height: 30px; width: auto;" alt="ContratLab Logo">
-        </a>
+                <img src="/code/contratlab-logo-png.png" alt="ContractLab Logo"  style="height: 30%; width: 25%; margin-left: 20px;">
+            </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -57,8 +57,8 @@
             </ul>
         </div>
     </div>
-</nav><br>
-<br>
+</nav>
+
 
 <body>
     <!-- Navigation-->
@@ -107,25 +107,13 @@
                 <li class="breadcrumb-item active">Clients</li>
             </ol>
 
-           
-
-            {# <!-- Area Chart Example -->
-            <div class="card mb-3">
-                <div class="card-header">
-                    <i class="fa fa-user-circle-o" aria-hidden="true"></i> Utilisateurs
-                </div>
-                <div class="card-body">
-                    <canvas id="myAreaChart" width="100%" height="30"></canvas>
-                </div> #}
                 
 
             <!-- User Table -->
              <h2>Liste des Clients</h2>
           <div class="form-outline" data-mdb-input-init>
-    <input type="search" id="searchInput" class="form-control" placeholder="Recherche" aria-label="Search" />
-</div>
+          <input type="search" id="searchInput" class="form-control" placeholder="Recherche" aria-label="Search" /></div>
 <div class="container">
-   
     <div class="table-responsive">
         <table class="responsive-table">
             <thead>
@@ -140,7 +128,7 @@
             </thead>
             <tbody>
                 {% for client in clients %}
-                <tr class="table-row">
+                <tr class="table-row" id="clientRow{{ client.id }}">
                     <td class="col col-1" data-label="Email">{{ client.email }}</td>
                     <td class="col col-2" data-label="Prénom">{{ client.prenom }}</td>
                     <td class="col col-3" data-label="Nom">{{ client.nom }}</td>
@@ -195,46 +183,32 @@
     </footer>
 </body>
 
-
-
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-    // Fonction pour filtrer les clients en fonction de la recherche
-    function filterClients() {
-        // Récupérer la valeur saisie dans le champ de recherche
-        var input = document.getElementById('searchInput');
-        var filter = input.value.toUpperCase();
-        
-        // Sélectionner la table et les lignes à filtrer
-        var table = document.querySelector('.responsive-table');
-        var rows = table.getElementsByTagName('tr');
-        
-        // Parcourir toutes les lignes de la table et masquer celles qui ne correspondent pas à la recherche
-        for (var i = 0; i < rows.length; i++) {
-            var cols = rows[i].getElementsByTagName('td');
-            var found = false;
-            for (var j = 0; j < cols.length && !found; j++) {
-                var text = cols[j].innerText || cols[j].textContent;
-                if (text.toUpperCase().indexOf(filter) > -1) {
-                    found = true;
+    $(document).ready(function() {
+        $('#searchInput').on('keyup', function() {
+            var searchText = $(this).val().toLowerCase();
+            $('.table-row').each(function() {
+                var email = $(this).find('.col-1').text().toLowerCase();
+                var prenom = $(this).find('.col-2').text().toLowerCase();
+                var nom = $(this).find('.col-3').text().toLowerCase();
+                var telephone = $(this).find('.col-4').text().toLowerCase();
+                
+                if (email.indexOf(searchText) === -1 && prenom.indexOf(searchText) === -1 && nom.indexOf(searchText) === -1 && telephone.indexOf(searchText) === -1) {
+                    $(this).hide();
+                } else {
+                    $(this).show();
                 }
-            }
-            rows[i].style.display = found ? '' : 'none';
-        }
-    }
-    
-    // Ajouter un écouteur d'événement pour déclencher la recherche lors de la saisie
-    document.getElementById('searchInput').addEventListener('input', filterClients);
+            });
+        });
+    });
 </script>
-
-
-
-
-
-
 
 <style>
 
-
+.responsive-table thead {
+    display: table-header-group; /* Ensures thead is always visible */
+}
 .navbar-brand img {
             height: 30%;
             width: 30%;
