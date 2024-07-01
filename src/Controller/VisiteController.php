@@ -15,6 +15,8 @@ use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\String\Slugger\SluggerInterface;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
 
 #[Route('/visite')]
 class VisiteController extends AbstractController
@@ -39,14 +41,12 @@ class VisiteController extends AbstractController
     }
 
     #[Route('/new', name: 'visite_new', methods: ['GET', 'POST'])]
-    public function new(Request $request,UserRepository $userRepository,EntityManagerInterface $entityManager, SluggerInterface $slugger): Response
+    public function new(Request $request,UserRepository $userRepository,EntityManagerInterface $entityManager, SluggerInterface $slugger,MailerInterface $mailer): Response
     {
         /*
                 if (!$user instanceof SluggerInterface) {
             return $this->render('visite/index.html.twig');
         }
-
-        
         */
         $visite = new Visite();
         $form = $this->createForm(VisiteType::class, $visite);

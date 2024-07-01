@@ -1,4 +1,3 @@
-<?php
 namespace App\Controller;
 
 use App\Entity\Contrat;
@@ -15,8 +14,8 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\Security\Core\Security;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 class ContratController extends AbstractController
 {
@@ -31,9 +30,7 @@ class ContratController extends AbstractController
         $this->contratRepository = $contratRepository;
     }
 
-    /**
-     * @Route("/contrat", name="app_contrat_index", methods={"GET"})
-     */
+    #[Route('/contrat', name: 'app_contrat_index', methods: ['GET'])]
     public function index(): Response
     {
         $contrats = $this->contratRepository->findAll();
@@ -51,9 +48,7 @@ class ContratController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/contrat/show/{id}", name="app_contrat_show", methods={"GET"})
-     */
+    #[Route('/contrat/show/{id}', name: 'app_contrat_show', methods: ['GET'])]
     public function show(Contrat $contrat): Response
     {
         return $this->render('contrat/show.html.twig', [
@@ -61,10 +56,8 @@ class ContratController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/contrat/edit/{id}", name="app_contrat_edit", methods={"GET", "POST"})
-     * @ParamConverter("contrat", class="App\Entity\Contrat")
-     */
+    #[Route('/contrat/edit/{id}', name: 'app_contrat_edit', methods: ['GET', 'POST'])]
+    #[ParamConverter('contrat', class: 'App\Entity\Contrat')]
     public function edit(Request $request, Contrat $contrat, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(ContratType::class, $contrat);
@@ -82,9 +75,7 @@ class ContratController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/contrat/new", name="app_contrat_new", methods={"GET", "POST"})
-     */
+    #[Route('/contrat/new', name: 'app_contrat_new', methods: ['GET', 'POST'])]
     public function new(Request $request, SluggerInterface $slugger, EntityManagerInterface $entityManager): Response
     {
         $contrat = new Contrat();
@@ -124,8 +115,6 @@ class ContratController extends AbstractController
             $entityManager->persist($contrat);
             $entityManager->flush();
 
-            
-
             return $this->redirectToRoute('app_contrat_show', ['id' => $contrat->getId()]);
         }
 
@@ -134,9 +123,7 @@ class ContratController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/contrat/delete/{id}", name="app_contrat_delete", methods={"POST"})
-     */
+    #[Route('/contrat/delete/{id}', name: 'app_contrat_delete', methods: ['POST'])]
     public function delete(Request $request, Contrat $contrat, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete' . $contrat->getId(), $request->request->get('_token'))) {
@@ -151,9 +138,7 @@ class ContratController extends AbstractController
         return $this->redirectToRoute('app_contrat_index');
     }
 
-    /**
-     * @Route("/contrat/renew/{id}", name="app_contrat_renew", methods={"GET", "POST"})
-     */
+    #[Route('/contrat/renew/{id}', name: 'app_contrat_renew', methods: ['GET', 'POST'])]
     public function renew(Request $request, Contrat $contrat, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(ContratRenewType::class, $contrat);
@@ -173,9 +158,7 @@ class ContratController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/contrat/modify-pdf/{id}", name="app_contrat_modify_pdf", methods={"GET"})
-     */
+    #[Route('/contrat/modify-pdf/{id}', name: 'app_contrat_modify_pdf', methods: ['GET'])]
     public function modifyPdf(Contrat $contrat, PdfModifier $pdfModifier, LoggerInterface $logger): Response
     {
         $sourceFilePath = $this->getParameter('brochures_directory') . '/' . $contrat->getBrochureFilename();
