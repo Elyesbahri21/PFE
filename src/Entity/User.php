@@ -262,14 +262,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $visite->setResponsable(null);
             }
         }
-
         return $this;
     }
+    
     public function __toString()
     {
         return $this->nom ?? '';
     }
-
-    
 
 }

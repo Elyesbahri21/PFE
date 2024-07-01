@@ -5,6 +5,7 @@ use App\Entity\User;
 use App\Entity\Visite;
 use App\Form\VisiteType;
 use App\Repository\VisiteRepository;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -33,20 +34,30 @@ class VisiteController extends AbstractController
     public function index(): Response
     {
         return $this->render('visite/index.html.twig', [
-            'visites' => $this->visiteRepository->findAll(),
+            'visites' => $this->visiteRepository->findByResponsable($user = $this->getUser())
         ]);
     }
 
     #[Route('/new', name: 'visite_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager, SluggerInterface $slugger): Response
+    public function new(Request $request,UserRepository $userRepository,EntityManagerInterface $entityManager, SluggerInterface $slugger): Response
     {
+        /*
+                if (!$user instanceof SluggerInterface) {
+            return $this->render('visite/index.html.twig');
+        }
+
+        
+        */
         $visite = new Visite();
         $form = $this->createForm(VisiteType::class, $visite);
         $form->handleRequest($request);
 
         // Simulate setting a user; replace with actual user fetching logic
         //$user = $entityManager->getRepository(User::class)->find(2);
+
+
         $user = $this->getUser();
+        $userType = $user->getId();
         $visite->setResponsable($user);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -78,6 +89,9 @@ class VisiteController extends AbstractController
         return $this->render('visite/new.html.twig', [
             'visite' => $visite,
             'form' => $form->createView(),
+            'userType' => $userType,
+            'message' => "assbaa",
+
         ]);
     }
 

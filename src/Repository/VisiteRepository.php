@@ -4,6 +4,7 @@
 namespace App\Repository;
 
 use App\Entity\Visite;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -43,6 +44,15 @@ class VisiteRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult()
         ;
+    }
+
+    public function findByResponsable(User $responsable): array
+    {
+        return $this->createQueryBuilder('v')
+            ->andWhere('v.responsable = :responsable')
+            ->setParameter('responsable', $responsable)
+            ->getQuery()
+            ->getResult();
     }
 
     

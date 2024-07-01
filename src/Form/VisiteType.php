@@ -60,17 +60,6 @@ class VisiteType extends AbstractType
                 'class' => Contrat::class,
                 'choice_label' => 'nom',
                 'attr' => ['class' => 'form-control'], // Bootstrap class for form-control
-            ])
-            ->add('responsable', EntityType::class, [
-                'class' => User::class,
-                'choice_label' => 'username',
-                'query_builder' => function (\Doctrine\ORM\EntityRepository $er) {
-                    return $er->createQueryBuilder('u')
-                        ->andWhere('u.roles LIKE :role')
-                        ->setParameter('role', '%"ROLE_RESPONSABLE"%');
-                },
-                'attr' => ['class' => 'form-control'], // Bootstrap class for form-control
-                // add more options as needed
             ]);
     }
 

@@ -5,6 +5,7 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
+
 /**
  * @ORM\Entity(repositoryClass="App\Repository\VisiteRepository")
  * @ORM\Table(name="visite")  
@@ -47,7 +48,7 @@ class Visite
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class)
-     * @ORM\JoinColumn(name="id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="responsable_id", referencedColumnName="id")
      */
     private $responsable;
     
@@ -126,4 +127,21 @@ class Visite
         return $this;
     }
 
+    /*
+    public function __construct(
+        \DateTimeInterface $date,
+        string $type,
+        string $description,
+        string $pv,
+        Contrat $contrat,
+        ?User $responsable
+    ) {
+        $this->date = $date;
+        $this->type = $type;
+        $this->description = $description;
+        $this->pv = $pv;
+        $this->contrat = $contrat;
+        $this->responsable = $responsable;
+    }
+    */
 }
