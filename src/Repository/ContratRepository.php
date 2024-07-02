@@ -5,6 +5,8 @@ namespace App\Repository;
 use App\Entity\Contrat;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\ORM\QueryBuilder;
+
 
 /**
  * @extends ServiceEntityRepository<Contrat>
@@ -52,6 +54,20 @@ class ContratRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+
+    public function findExpiringSoon(): array
+    {
+        $now = new \DateTime();
+        $twoDaysLater = (clone $now)->modify('+2 days');
+
+        return $this->createQueryBuilder('c')
+            ->where('c.date_fin BETWEEN :now AND :twoDaysLater')
+            ->setParameter('now', $now)
+            ->setParameter('twoDaysLater', $twoDaysLater)
+            ->getQuery()
+            ->getResult();
+    }
+
 }
 
 

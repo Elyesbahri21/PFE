@@ -17,6 +17,8 @@ use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Security\Core\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
 
 class ContratController extends AbstractController
 {
@@ -32,7 +34,7 @@ class ContratController extends AbstractController
     }
 
     #[Route('/contrat', name: 'app_contrat_index', methods: ['GET'])]
-    public function index(): Response
+    public function index(MailerInterface $mailer): Response
     {
         $contrats = $this->contratRepository->findAll();
 
@@ -40,6 +42,7 @@ class ContratController extends AbstractController
         $totalContrats = count($contrats);
         $availableContrats = count(array_filter($contrats, fn($contrat) => $contrat->getStatus() === 'Disponible'));
         $unavailableContrats = count(array_filter($contrats, fn($contrat) => $contrat->getStatus() === 'Indisponible'));
+
 
         return $this->render('contrat/index.html.twig', [
             'contrats' => $contrats,
