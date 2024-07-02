@@ -18,13 +18,13 @@
 {% endblock %}
 
 {% block body %}
-
+{# 
     <script type="text/javascript">
         document.addEventListener("DOMContentLoaded", function() {
             console.log("Message from server: {{ message|e('js') }}");
             console.log("User type: {{ userType|e('js') }}");
         });
-    </script>
+    </script> #}
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -32,7 +32,7 @@
  <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container">
         <a class="navbar-brand" href="http://127.0.0.1:8000/">
-            <img src="/code/contratlab-logo-png.png" style="height: 30px; width: auto;" alt="ContratLab Logo">
+            <img src="/code/contratlab-logo-png.png" style="height: 50px; width: auto;" alt="ContratLab Logo">
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -78,7 +78,7 @@
         </div>
     </div>
 </nav>
-<br>
+
 
 <body>
     <!-- Navigation-->
@@ -165,15 +165,15 @@
 
  <br><br><br><br><br><br>
     <!-- Footer -->
-   <footer class="footer">
+  <footer class="footer">
       <div class="footer__addr">
         <img class="img-footer"src="/code/progress.png" >
-        <h2>Contact</h2>
+        <h2 style="text-align:left;">Contact</h2>
         <address>5534 Tunis , Tunisia<br> <a class="footer__btn" href="#section2">Email Us</a></address>
       </div>
       <ul class="footer__nav">
         <li class="nav__item">
-           <h2 class="nav__title">Réseaux sociaux</h2>
+           <h3 class="nav__title">Réseaux sociaux</h3>
           <ul class="nav__ul">
             <li><a href="https://www.progress.com.tn/">Site web</a></li>
             <li><a href="https://www.facebook.com/ProgressengineeringTunisia">Facebook</a></li>
@@ -181,7 +181,7 @@
          </ul>
         </li>
         <li class="nav__item">
-          <h2 class="nav__title">Adresse</h2>
+          <h3 class="nav__title">Adresse</h3>
           <ul class="nav__ul">
             <li><a>Parc Technologique Elgazala</a></li>
             <li><a>Batiment i2 RDC</a></li>

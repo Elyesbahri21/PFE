@@ -104,6 +104,12 @@
                 </li> 
                  {% endif %} 
                  <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
+                    <a class="nav-link" href="http://127.0.0.1:8000/dashboard_responsable">
+                        <i class="fa fa-fw fa-table"></i>
+                        <span class="nav-link-text">Dashboard</span>
+                    </a>
+                </li> 
+                 <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
                     <a class="nav-link" href="http://127.0.0.1:8000/visite">
                         <i class="fa fa-fw fa-table"></i>
                         <span class="nav-link-text">Interventions</span>
@@ -128,9 +134,9 @@
                 <div class="row">
                     <div class="col-md-4">
                         <div class="card text-white bg-primary mb-3">
-                            <div class="card-header">Visites Préventives</div>
+                            <div class="card-header">Visites Préventives </div>
                             <div class="card-body">
-                            <h5 class="card-title"></h5>
+                            <h5 class="card-title">{{preventives}}</h5>
                             </div>
                         </div>
                     </div>
@@ -138,7 +144,7 @@
                         <div class="card text-white bg-success mb-3">
                             <div class="card-header">Visites Curatives</div>
                             <div class="card-body">
-                                <h5 class="card-title"></h5>
+                                <h5 class="card-title">{{curatives}}</h5>
                             </div>
                         </div>
                     </div>
@@ -146,7 +152,7 @@
                         <div class="card text-white bg-warning mb-3">
                             <div class="card-header">Visites évolutives</div>
                             <div class="card-body">
-                                <h5 class="card-title"></h5>
+                                <h5 class="card-title">{{evolutives}}</h5>
                             </div>
                         </div>
                     </div>
@@ -202,12 +208,12 @@
    <footer class="footer">
       <div class="footer__addr">
         <img class="img-footer"src="/code/progress.png" >
-        <h2>Contact</h2>
+        <h2 style="text-align:left;">Contact</h2>
         <address>5534 Tunis , Tunisia<br> <a class="footer__btn" href="#section2">Email Us</a></address>
       </div>
       <ul class="footer__nav">
         <li class="nav__item">
-           <h2 class="nav__title">Réseaux sociaux</h2>
+           <h3 class="nav__title">Réseaux sociaux</h3>
           <ul class="nav__ul">
             <li><a href="https://www.progress.com.tn/">Site web</a></li>
             <li><a href="https://www.facebook.com/ProgressengineeringTunisia">Facebook</a></li>
@@ -215,7 +221,7 @@
          </ul>
         </li>
         <li class="nav__item">
-          <h2 class="nav__title">Adresse</h2>
+          <h3 class="nav__title">Adresse</h3>
           <ul class="nav__ul">
             <li><a>Parc Technologique Elgazala</a></li>
             <li><a>Batiment i2 RDC</a></li>
@@ -315,6 +321,37 @@
     position: relative;
     cursor: pointer;
 }
+ .dropdown {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .dropdown-toggle {
+    background-color: #f1f1f1;
+    color: #333;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .dropdown-menu {
+    display: none;
+    position: absolute;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    z-index: 1;
+  }
+  
+  .dropdown-menu a {
+    display: block;
+    padding: 10px 20px;
+    color: #333;
+    text-decoration: none;
+  }
+  
+  .dropdown-menu a:hover {
+    background-color: #f1f1f1;
+  }
 
 .footer {
     position: relative;

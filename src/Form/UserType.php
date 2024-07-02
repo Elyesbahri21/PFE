@@ -27,7 +27,6 @@ class UserType extends AbstractType
                     'Admin' => 'ROLE_ADMIN',
                     'Gestionnaire' => 'ROLE_GESTIONNAIRE',
                     'Responsable contrat' => 'ROLE_RESPONSABLE',
-                    'required' => true,
                 ],
                 'multiple' => true,
                 'expanded' => true,

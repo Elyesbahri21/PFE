@@ -7,16 +7,18 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.css" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/qtip2/3.0.3/jquery.qtip.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/qtip2/3.0.3/jquery.qtip.min.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qtip2/3.0.3/jquery.qtip.min.js"></script>
+
 
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container">
         <a class="navbar-brand" href="http://127.0.0.1:8000/">
-            <img src="/code/contratlab-logo-png.png" style="height: 30px; width: auto;" alt="ContratLab Logo">
+            <img src="/code/contratlab-logo-png.png" style="height: 50px; width: auto;" alt="ContratLab Logo">
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -110,6 +112,12 @@
                 </li> 
                  {% endif %} 
                  <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
+                    <a class="nav-link" href="http://127.0.0.1:8000/dashboard_responsable">
+                        <i class="fa fa-fw fa-table"></i>
+                        <span class="nav-link-text">Dashboard</span>
+                    </a>
+                </li> 
+                 <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
                     <a class="nav-link" href="http://127.0.0.1:8000/visite">
                         <i class="fa fa-fw fa-table"></i>
                         <span class="nav-link-text">Interventions</span>
@@ -128,18 +136,34 @@
                 </li>
                 <li class="breadcrumb-item active">Dashboard Responsable</li>
             </ol>
-
-        
+<br>
+        <h2>Mes visites</h2>
             <div class="row justify-content-center ">
+            <div class="col-xl-3 col-sm-6 mb-3">
+                    <div class="card text-white bg-success o-hidden h-100">
+                        <div class="card-body">
+                            <div class="card-body-icon">
+                                <i class="fa fa-fw fa-list"></i>
+                            </div>
+                            <div class="mr-5">Visites Totale {{ totalVisites }}</div>
+                        </div>
+                        <a class="card-footer text-white clearfix small z-1" href="http://127.0.0.1:8000/visite/">
+                            <span class="float-left">Details</span>
+                            <span class="float-right">
+                                <i class="fa fa-angle-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                </div>
                 <div class="col-xl-3 col-sm-6 mb-3">
                     <div class="card text-white bg-primary o-hidden h-100">
                         <div class="card-body">
                             <div class="card-body-icon">
                                 <i class="fa fa-fw fa-list"></i>
                             </div>
-                            <div class="mr-5">Visite effectués</div>
+                            <div class="mr-5">Visites effectués {{ completedVisites }}</div>
                         </div>
-                        <a class="card-footer text-white clearfix small z-1" href="">
+                        <a class="card-footer text-white clearfix small z-1" href="http://127.0.0.1:8000/visite/">
                             <span class="float-left">Details</span>
                             <span class="float-right">
                                 <i class="fa fa-angle-right"></i>
@@ -153,9 +177,9 @@
                             <div class="card-body-icon">
                                 <i class="fa fa-fw fa-list"></i>
                             </div>
-                            <div class="mr-5">Visite a venir</div>
+                            <div class="mr-5">Visites a venir {{ upcomingVisites }}</div>
                         </div>
-                        <a class="card-footer text-white clearfix small z-1" href="">
+                        <a class="card-footer text-white clearfix small z-1" href="http://127.0.0.1:8000/visite/">
                             <span class="float-left">Details</span>
                             <span class="float-right">
                                 <i class="fa fa-angle-right"></i>
@@ -164,45 +188,15 @@
                     </div>
                 </div>
             </div>
-
+<br><br><br>
 
   
 
 
-
-<div id="calendar"></div>
+<h2>Calendrier visites totales</h2>
+<div id="calendar" class="small-calendar"></div>
 
 <script>
-
-$(document).ready(function() {
-    $('#calendar').fullCalendar({
-        header: {
-            left: 'prev,next today',
-            center: 'title',
-            right: 'month,agendaWeek,agendaDay'
-        },
-        editable: false,
-        events: [
-            {% for visite in visites %}
-            {
-                title: "{{ visite.type }}",
-                start: "{{ visite.date|date('Y-m-d\TH:i:s') }}",
-                description: "{{ visite.description }}",
-                url: "{{ path('visite_show', {'id': visite.id}) }}"
-            },
-            {% endfor %}
-        ],
-        eventRender: function(event, element) {
-            element.qtip({
-                content: event.description,
-                style: {
-                    classes: 'qtip-blue qtip-shadow'
-                }
-            });
-        }
-    });
-});
-
 $(document).ready(function() {
     $('#calendar').fullCalendar({
         header: {
@@ -212,15 +206,19 @@ $(document).ready(function() {
         },
         editable: false,
         events: {
-            url: '/path/to/your/json/source',
+            url: '{{ path('dashboard_responsable_visites_json') }}',
             type: 'GET',
             error: function() {
-                alert('there was an error while fetching events!');
+                alert('Il y a eu une erreur lors de la récupération des événements!');
             }
         },
-        eventRender: function(event, element) {
+         eventRender: function(event, element) {
+            var tooltipContent = '<b>' + event.title + '</b><br>' +
+                                 'Responsable: ' + event.responsable + '<br>' +
+                                 'Contrat: ' + event.contratName;
+
             element.qtip({
-                content: event.description,
+                content: tooltipContent,
                 style: {
                     classes: 'qtip-blue qtip-shadow'
                 }
@@ -228,21 +226,8 @@ $(document).ready(function() {
         }
     });
 });
-
-
 </script>
-
-
-
-
-
-
-
-
-
-
-
-        
+  
 
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
@@ -250,12 +235,12 @@ $(document).ready(function() {
     <footer class="footer">
       <div class="footer__addr">
         <img class="img-footer"src="code/progress.png" >
-        <h2>Contact</h2>
+        <h2 style="text-align:left;">Contact</h2>
         <address>5534 Tunis , Tunisia<br> <a class="footer__btn" href="#section2">Email Us</a></address>
       </div>
       <ul class="footer__nav">
         <li class="nav__item">
-           <h2 class="nav__title">Réseaux sociaux</h2>
+           <h3 class="nav__title">Réseaux sociaux</h3>
           <ul class="nav__ul">
             <li><a href="https://www.progress.com.tn/">Site web</a></li>
             <li><a href="https://www.facebook.com/ProgressengineeringTunisia">Facebook</a></li>
@@ -263,7 +248,7 @@ $(document).ready(function() {
          </ul>
         </li>
         <li class="nav__item">
-          <h2 class="nav__title">Adresse</h2>
+          <h3 class="nav__title">Adresse</h3>
           <ul class="nav__ul">
             <li><a>Parc Technologique Elgazala</a></li>
             <li><a>Batiment i2 RDC</a></li>
@@ -277,6 +262,50 @@ $(document).ready(function() {
 
 
 <style>
+
+.chart {
+            width: 100%;
+            max-width: 600px;
+            margin: 20px auto;
+            text-align: center;
+        }
+        .chart-bar {
+            display: inline-block;
+            margin-right: 10px;
+            width: 30px;
+            height: 150px;
+            position: relative;
+            background-color: #3498db;
+        }
+        .chart-bar span {
+            position: absolute;
+            bottom: -20px;
+            left: 0;
+            width: 100%;
+            color: #fff;
+            font-size: 12px;
+        }
+.small-calendar {
+    max-width: 80%; /* Adjust this value to set the width */
+    height: 500px; /* Adjust this value to set the height */
+    margin: auto; /* Center the calendar horizontally */
+}
+
+.fc-view-container {
+    height: 100% !important; /* Ensure the calendar view container takes the full height */
+}
+.fc {
+    font-size: 0.9em; /* Adjust font size if needed */
+}
+
+.fc-toolbar h2 {
+    font-size: 1.5em; /* Adjust the title size */
+}
+
+.fc-view-container {
+    height: auto;
+}
+    
 
 
 .navbar-brand img {
