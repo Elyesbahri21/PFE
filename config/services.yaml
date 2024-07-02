@@ -35,6 +35,6 @@ services:
         arguments:
             $pvDirectory: '%pv_directory%'
 
-    App\Security\UserChecker:
-        tags:
-            - { name: security.user_checker }
+    # App\Security\UserChecker:
+    #     tags:
+    #         - { name: security.user_checker }

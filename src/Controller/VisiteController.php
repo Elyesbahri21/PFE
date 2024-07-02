@@ -35,7 +35,22 @@ class VisiteController extends AbstractController
     #[Route('/', name: 'visite_index', methods: ['GET'])]
     public function index(): Response
     {
+        $user = $this->getUser();
+        $currentDate = new \DateTime(); // Date actuelle
+        $totalVisites = $this->visiteRepository->countTotalVisitesForUser($this->getUser());
+        $completedVisites = $this->visiteRepository->countCompletedVisites($user, $currentDate);
+        $upcomingVisites = $this->visiteRepository->countUpcomingVisites($user, $currentDate);
+        $preventives = $this->visiteRepository->countVisitesByType($user, 'Préventive');
+        $curatives = $this->visiteRepository->countVisitesByType($user, 'Curative');
+        $evolutives = $this->visiteRepository->countVisitesByType($user, 'Évolutive');
+
         return $this->render('visite/index.html.twig', [
+            'totalVisites' => $totalVisites,
+            'completedVisites' => $completedVisites,
+            'upcomingVisites' => $upcomingVisites,
+            'preventives' => $preventives,
+            'curatives' => $curatives,
+            'evolutives' => $evolutives,
             'visites' => $this->visiteRepository->findByResponsable($user = $this->getUser())
         ]);
     }
@@ -52,8 +67,7 @@ class VisiteController extends AbstractController
         $form = $this->createForm(VisiteType::class, $visite);
         $form->handleRequest($request);
 
-        // Simulate setting a user; replace with actual user fetching logic
-        //$user = $entityManager->getRepository(User::class)->find(2);
+        
 
 
         $user = $this->getUser();
