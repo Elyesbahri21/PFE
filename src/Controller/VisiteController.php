@@ -90,7 +90,7 @@ class VisiteController extends AbstractController
             'visite' => $visite,
             'form' => $form->createView(),
             'userType' => $userType,
-            'message' => "assbaa",
+           
 
         ]);
     }
