@@ -58,12 +58,12 @@ class ContratRepository extends ServiceEntityRepository
     public function findExpiringSoon(): array
     {
         $now = new \DateTime();
-        $twoDaysLater = (clone $now)->modify('+2 days');
-
+        $oneMonthLater = (clone $now)->modify('+1 month');
+    
         return $this->createQueryBuilder('c')
-            ->where('c.date_fin BETWEEN :now AND :twoDaysLater')
+            ->where('c.date_fin BETWEEN :now AND :oneMonthLater')
             ->setParameter('now', $now)
-            ->setParameter('twoDaysLater', $twoDaysLater)
+            ->setParameter('oneMonthLater', $oneMonthLater)
             ->getQuery()
             ->getResult();
     }

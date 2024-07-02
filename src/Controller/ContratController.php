@@ -26,7 +26,7 @@ class ContratController extends AbstractController
     private $brochuresDirectory;
     private $security;
 
-    public function __construct(string $brochuresDirectory, Security $security, ContratRepository $contratRepository)
+    public function __construct(string $brochuresDirectory,Security $security, ContratRepository $contratRepository)
     {
         $this->brochuresDirectory = $brochuresDirectory;
         $this->security = $security;
@@ -42,6 +42,20 @@ class ContratController extends AbstractController
         $totalContrats = count($contrats);
         $availableContrats = count(array_filter($contrats, fn($contrat) => $contrat->getStatus() === 'Disponible'));
         $unavailableContrats = count(array_filter($contrats, fn($contrat) => $contrat->getStatus() === 'Indisponible'));
+
+        $xcontrats = $this->contratRepository->findExpiringSoon();
+        foreach($xcontrats as $xcontrat)
+        {
+        $message = (new Email())
+        ->from('culturnaskapere@gmail.com')
+        ->to('elyesbahri.contact@gmail.com')
+        ->subject('Contrat expiré')
+        ->html($this->renderView('contrat/email.html.twig', [
+            'contrat' => $xcontrat,
+        ]));
+        $mailer->send($message);
+        echo $xcontrat;
+        }
 
 
         return $this->render('contrat/index.html.twig', [
