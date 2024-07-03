@@ -47,9 +47,9 @@ class ContratController extends AbstractController
         foreach($xcontrats as $xcontrat)
         {
         $message = (new Email())
-        ->from('culturnaskapere@gmail.com')
+        ->from('contratlab@gmail.com')
         ->to('elyesbahri.contact@gmail.com')
-        ->subject('Contrat expiré')
+        ->subject('Votre contrat expire bientôt')
         ->html($this->renderView('contrat/email.html.twig', [
             'contrat' => $xcontrat,
         ]));
