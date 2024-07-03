@@ -34,6 +34,13 @@ class LoginformAuthenticator extends AbstractLoginFormAuthenticator
 
         $request->getSession()->set(Security::LAST_USERNAME, $email);
 
+        $user = $this->userRepository->searchByEmail2($email);
+
+        if($user->getIsActive()==0)
+        {
+            echo "incative";
+        }
+        
         return new Passport(
             new UserBadge($email),
             new PasswordCredentials($request->request->get('password', '')),
