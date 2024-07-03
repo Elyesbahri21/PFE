@@ -60,6 +60,15 @@ class UserType extends AbstractType
                     ]),
                 ],
                 'required' => true,
+            ])
+            ->add('isActive', ChoiceType::class, [
+                'choices' => [
+                    'Active' => true,
+                    'Inactive' => false,
+                ],
+                'expanded' => true,
+                'multiple' => false,
+                'label' => 'Active',
             ]);
     }
 
