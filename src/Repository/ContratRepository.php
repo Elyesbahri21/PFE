@@ -3,9 +3,11 @@
 namespace App\Repository;
 
 use App\Entity\Contrat;
+use App\Entity\Visite;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\ORM\QueryBuilder;
+use DateInterval;
 
 
 /**

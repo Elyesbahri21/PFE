@@ -5,6 +5,8 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Security;
+use App\Validator\Constraints\DateFinAfterDateDebut;
+
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ContratRepository")
