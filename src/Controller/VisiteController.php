@@ -95,7 +95,6 @@ class VisiteController extends AbstractController
 
             $entityManager->persist($visite);
             $entityManager->flush();
-
             $this->addFlash('success', 'Visite created successfully!');
             return $this->redirectToRoute('visite_index');
         }

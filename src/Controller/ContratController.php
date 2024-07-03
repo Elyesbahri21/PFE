@@ -2,9 +2,11 @@
 namespace App\Controller;
 
 use App\Entity\Contrat;
+use App\Entity\Visite;
 use App\Form\ContratRenewType;
 use App\Form\ContratType;
 use App\Repository\ContratRepository;
+use App\Repository\VisiteRepository;
 use App\Service\PdfModifier;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
@@ -132,6 +134,7 @@ class ContratController extends AbstractController
 
             $entityManager->persist($contrat);
             $entityManager->flush();
+            $this->contratRepository->createThreeVisites($contrat);
 
             return $this->redirectToRoute('app_contrat_show', ['id' => $contrat->getId()]);
         }

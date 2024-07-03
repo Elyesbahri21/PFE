@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <!-- Modal -->
+    <div class="modal show" id="inactiveModal" tabindex="-1" role="dialog" style="display: block;" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Account Inactive</h5>
+                </div>
+                <div class="modal-body">
+                    <p>Your account is inactive. Please contact support.</p>
+                </div>
+                <div class="modal-footer">
+                    <a href="{{ path('app_login') }}" class="btn btn-primary">Close</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

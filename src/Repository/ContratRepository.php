@@ -70,6 +70,24 @@ class ContratRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function createThreeVisites(Contrat $contrat)
+    {
+        $now = new \DateTime();
+        for ($i = 1; $i < 4; $i++) {
+            $visite = new Visite();
+            $visite->setDate((clone $now)->add(new DateInterval('P' . ($i * 4) . 'M')));
+            $visite->setType('préventive'); // Set your type accordingly
+            $visite->setDescription('Description'); // Set your description accordingly
+            $visite->setPv('PV'); // Set your pv accordingly
+            $visite->setContrat($contrat);
+            $visite->setResponsable(null);
+
+            $this->entityManager->persist($visite);
+        }
+
+        $this->entityManager->flush();
+    }
+
 }
 
 
