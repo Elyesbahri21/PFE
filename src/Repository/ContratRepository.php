@@ -73,7 +73,7 @@ class ContratRepository extends ServiceEntityRepository
     public function createThreeVisites(Contrat $contrat)
     {
         $now = new \DateTime();
-        for ($i = 1; $i < 4; $i++) {
+        for ($i = 0; $i < 3; $i++) {
             $visite = new Visite();
             $visite->setDate((clone $now)->add(new DateInterval('P' . ($i * 4) . 'M')));
             $visite->setType('préventive'); // Set your type accordingly

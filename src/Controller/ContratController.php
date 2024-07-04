@@ -24,6 +24,7 @@ use Symfony\Component\Mime\Email;
 
 class ContratController extends AbstractController
 {
+    private $VisiteRepository;
     private $contratRepository;
     private $brochuresDirectory;
     private $security;
@@ -134,7 +135,8 @@ class ContratController extends AbstractController
 
             $entityManager->persist($contrat);
             $entityManager->flush();
-            $this->contratRepository->createThreeVisites($contrat);
+            //$this->VisiteRepository->createThreeVisites($contrat);
+            //$this->contratRepository->createThreeVisites($contrat);
 
             return $this->redirectToRoute('app_contrat_show', ['id' => $contrat->getId()]);
         }
