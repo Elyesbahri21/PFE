@@ -70,7 +70,7 @@ class ContratRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-    public function createThreeVisites(Contrat $contrat)
+    /*public function createThreeVisites(Contrat $contrat)
     {
         $now = new \DateTime();
         for ($i = 0; $i < 3; $i++) {
@@ -87,6 +87,7 @@ class ContratRepository extends ServiceEntityRepository
 
         $this->entityManager->flush();
     }
+        */
 
 }
 
