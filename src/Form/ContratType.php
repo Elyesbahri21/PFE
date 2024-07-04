@@ -59,14 +59,12 @@ class ContratType extends AbstractType
                 'required' => true,
             ])
             
-            
             ->add('produit', EntityType::class, [
                 'class' => Produit::class,
                 'choice_label' => 'nom',
                 'attr' => ['class' => 'form-control'],
                 'constraints' => [
                     new NotBlank(),
-                    new Length(['min' => 3, 'max' => 255]),
                 ],
             ])
             ->add('brochure', FileType::class, [

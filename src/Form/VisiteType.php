@@ -23,6 +23,7 @@ class VisiteType extends AbstractType
             ->add('date', DateTimeType::class, [
                 'widget' => 'single_text',
                 'attr' => ['class' => 'form-control'], 
+                'required' => true,
             ])
             ->add('type', ChoiceType::class, [
                 'choices' => [
@@ -31,6 +32,7 @@ class VisiteType extends AbstractType
                     'Évolutive' => 'Évolutive',
                 ],
                 'attr' => ['class' => 'form-control'],
+                'required' => true,
             ])
             ->add('description', TextareaType::class, [
                 'attr' => ['class' => 'form-control'], 
@@ -60,6 +62,7 @@ class VisiteType extends AbstractType
                 'class' => Contrat::class,
                 'choice_label' => 'nom',
                 'attr' => ['class' => 'form-control'], // Bootstrap class for form-control
+                'required' => true,
             ]);
     }
 
