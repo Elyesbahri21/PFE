@@ -5,8 +5,10 @@ namespace App\Repository;
 
 use App\Entity\Visite;
 use App\Entity\User;
+use App\Entity\Contrat;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use DateInterval;
 
 /**
  * @method Visite|null find($id, $lockMode = null, $lockVersion = null)
@@ -99,5 +101,23 @@ class VisiteRepository extends ServiceEntityRepository
             ->setParameter('user', $user)
             ->getQuery()
             ->getSingleScalarResult();
+    }
+
+    public function createThreeVisites(Contrat $contrat)
+    {
+        $now = new \DateTime();
+        for ($i = 0; $i < 3; $i++) {
+            $visite = new Visite();
+            $visite->setDate((clone $now)->add(new DateInterval('P' . ($i * 4) . 'M')));
+            $visite->setType('préventive'); // Set your type accordingly
+            $visite->setDescription('Description'); // Set your description accordingly
+            $visite->setPv('PV'); // Set your pv accordingly
+            $visite->setContrat($contrat);
+            $visite->setResponsable(null);
+
+            $this->entityManager->persist($visite);
+        }
+
+        $this->entityManager->flush();
     }
 }

@@ -2,9 +2,11 @@
 namespace App\Controller;
 
 use App\Entity\Contrat;
+use App\Entity\Visite;
 use App\Form\ContratRenewType;
 use App\Form\ContratType;
 use App\Repository\ContratRepository;
+use App\Repository\VisiteRepository;
 use App\Service\PdfModifier;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
@@ -22,11 +24,12 @@ use Symfony\Component\Mime\Email;
 
 class ContratController extends AbstractController
 {
+    private $VisiteRepository;
     private $contratRepository;
     private $brochuresDirectory;
     private $security;
 
-    public function __construct(string $brochuresDirectory, Security $security, ContratRepository $contratRepository)
+    public function __construct(string $brochuresDirectory,Security $security, ContratRepository $contratRepository)
     {
         $this->brochuresDirectory = $brochuresDirectory;
         $this->security = $security;
@@ -42,6 +45,20 @@ class ContratController extends AbstractController
         $totalContrats = count($contrats);
         $availableContrats = count(array_filter($contrats, fn($contrat) => $contrat->getStatus() === 'Disponible'));
         $unavailableContrats = count(array_filter($contrats, fn($contrat) => $contrat->getStatus() === 'Indisponible'));
+
+        $xcontrats = $this->contratRepository->findExpiringSoon();
+        foreach($xcontrats as $xcontrat)
+        {
+        $message = (new Email())
+        ->from('contratlab@gmail.com')
+        ->to('elyesbahri.contact@gmail.com')
+        ->subject('Votre contrat expire bientôt')
+        ->html($this->renderView('contrat/email.html.twig', [
+            'contrat' => $xcontrat,
+        ]));
+        $mailer->send($message);
+        echo $xcontrat;
+        }
 
 
         return $this->render('contrat/index.html.twig', [
@@ -118,6 +135,8 @@ class ContratController extends AbstractController
 
             $entityManager->persist($contrat);
             $entityManager->flush();
+            //$this->VisiteRepository->createThreeVisites($contrat);
+            //$this->contratRepository->createThreeVisites($contrat);
 
             return $this->redirectToRoute('app_contrat_show', ['id' => $contrat->getId()]);
         }

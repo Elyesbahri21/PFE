@@ -3,9 +3,11 @@
 namespace App\Repository;
 
 use App\Entity\Contrat;
+use App\Entity\Visite;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\ORM\QueryBuilder;
+use DateInterval;
 
 
 /**
@@ -58,14 +60,32 @@ class ContratRepository extends ServiceEntityRepository
     public function findExpiringSoon(): array
     {
         $now = new \DateTime();
-        $twoDaysLater = (clone $now)->modify('+2 days');
-
+        $oneMonthLater = (clone $now)->modify('+1 month');
+    
         return $this->createQueryBuilder('c')
-            ->where('c.date_fin BETWEEN :now AND :twoDaysLater')
+            ->where('c.date_fin BETWEEN :now AND :oneMonthLater')
             ->setParameter('now', $now)
-            ->setParameter('twoDaysLater', $twoDaysLater)
+            ->setParameter('oneMonthLater', $oneMonthLater)
             ->getQuery()
             ->getResult();
+    }
+
+    public function createThreeVisites(Contrat $contrat)
+    {
+        $now = new \DateTime();
+        for ($i = 0; $i < 3; $i++) {
+            $visite = new Visite();
+            $visite->setDate((clone $now)->add(new DateInterval('P' . ($i * 4) . 'M')));
+            $visite->setType('préventive'); // Set your type accordingly
+            $visite->setDescription('Description'); // Set your description accordingly
+            $visite->setPv('PV'); // Set your pv accordingly
+            $visite->setContrat($contrat);
+            $visite->setResponsable(null);
+
+            $this->entityManager->persist($visite);
+        }
+
+        $this->entityManager->flush();
     }
 
 }
