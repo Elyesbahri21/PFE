@@ -5,12 +5,14 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Security;
-use App\Validator\Constraints\DateFinAfterDateDebut;
+use App\Validator\Constraints\DateFin;
+use App\Validator\Constraints as CustomAssert;
 
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ContratRepository")
  * @ORM\Table(name="contrat")
+ * @CustomAssert\DateFin
  */
 class Contrat
 {
@@ -33,11 +35,13 @@ class Contrat
 
     /**
      * @ORM\Column(type="datetime")
+     * @Assert\NotBlank()
      */
     private $date_debut;
 
     /**
      * @ORM\Column(type="datetime")
+     * @Assert\NotBlank()
      */
     private $date_fin;
 
@@ -94,24 +98,24 @@ class Contrat
         return $this;
     }
 
-    public function getDateDebut(): ?\DateTimeInterface
+    public function getDateDebut(): ?\DateTime
     {
         return $this->date_debut;
     }
 
-    public function setDateDebut(\DateTimeInterface $date_debut): self
+    public function setDateDebut(?\DateTime $date_debut): self
     {
         $this->date_debut = $date_debut;
 
         return $this;
     }
 
-    public function getDateFin(): ?\DateTimeInterface
+    public function getDateFin(): ?\DateTime
     {
         return $this->date_fin;
     }
 
-    public function setDateFin(\DateTimeInterface $date_fin): self
+    public function setDateFin(?\DateTime $date_fin): self
     {
         $this->date_fin = $date_fin;
 
