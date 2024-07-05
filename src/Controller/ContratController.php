@@ -152,12 +152,11 @@ class ContratController extends AbstractController
                 $message = (new Email())
                 ->from('contratlab@gmail.com')
                 ->to('azizrihani.pro@gmail.com')
-                ->subject('Votre contrat expirera bientôt')
+                ->subject('Nouvelle visite affectée')
                 ->html($this->renderView('visite/email.html.twig', [
                     'visite' => $visite,
                 ]));
                 $mailer->send($message);
-
 
 
             }
