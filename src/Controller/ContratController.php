@@ -135,7 +135,8 @@ class ContratController extends AbstractController
 
             $entityManager->persist($contrat);
             $entityManager->flush();
-            //$this->VisiteRepository->createThreeVisites($contrat);
+            
+            $this->VisiteRepository->createThreeVisites($contrat);
             //$this->contratRepository->createThreeVisites($contrat);
 
             return $this->redirectToRoute('app_contrat_show', ['id' => $contrat->getId()]);
