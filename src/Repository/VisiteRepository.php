@@ -123,7 +123,7 @@ class VisiteRepository extends ServiceEntityRepository
         
         $message = (new Email())
         ->from('contratlab@gmail.com')
-        ->to('elyesbahri.contact@gmail.com')
+        ->to('azizrihani.pro@gmail.com')
         ->subject('Votre contrat expire bientôt')
         ->html($this->renderView('visite/email.html.twig', [
             'visite' => $visite,

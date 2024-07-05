@@ -6,7 +6,6 @@ use App\Entity\Visite;
 use App\Form\ContratRenewType;
 use App\Form\ContratType;
 use App\Repository\ContratRepository;
-use App\Repository\VisiteRepository;
 use App\Service\PdfModifier;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
@@ -21,6 +20,8 @@ use Symfony\Component\Security\Core\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
+use DateInterval;
+
 
 class ContratController extends AbstractController
 {
@@ -96,7 +97,7 @@ class ContratController extends AbstractController
     }
 
     #[Route('/contrat/new', name: 'app_contrat_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, SluggerInterface $slugger, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, SluggerInterface $slugger, EntityManagerInterface $entityManager,MailerInterface $mailer): Response
     {
         $contrat = new Contrat();
         $form = $this->createForm(ContratType::class, $contrat);
@@ -104,7 +105,7 @@ class ContratController extends AbstractController
 
         $user = $this->getUser(); // Get the current user
         // Add flash message for success notification
-        $this->addFlash('success', 'Contrat ajouté avec succès.');
+        //$this->addFlash('success', 'Contrat ajouté avec succès.');
 
         if (!$user) {
             throw $this->createAccessDeniedException('You must be logged in to create a contrat.');
@@ -113,7 +114,7 @@ class ContratController extends AbstractController
         $contrat->setUser($user); // Set the user to the current logged-in user
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->addFlash('success', 'Contract created successfully!');
+            //$this->addFlash('success', 'Contract created successfully!');
             /** @var UploadedFile $brochureFile */
             $brochureFile = $form->get('brochure')->getData();
 
@@ -135,8 +136,32 @@ class ContratController extends AbstractController
             $entityManager->persist($contrat);
             $entityManager->flush();
             
-            $this->VisiteRepository->createThreeVisites($contrat);
-            //$this->contratRepository->createThreeVisites($contrat);
+            ////////////////////////////////
+            $now = new \DateTime();
+            for ($i = 1; $i < 4; $i++) {
+                $visite = new Visite();
+                $visite->setDate((clone $now)->add(new DateInterval('P' . ($i * 4) . 'M')));
+                $visite->setType('préventive'); // Set your type accordingly
+                $visite->setDescription('Description'); // Set your description accordingly
+                $visite->setPv('PV'); // Set your pv accordingly
+                $visite->setContrat($contrat);
+                $visite->setResponsable(null);
+                $entityManager->persist($visite);
+                $entityManager->flush();
+
+                $message = (new Email())
+                ->from('contratlab@gmail.com')
+                ->to('azizrihani.pro@gmail.com')
+                ->subject('Votre contrat expirera bientôt')
+                ->html($this->renderView('visite/email.html.twig', [
+                    'visite' => $visite,
+                ]));
+                $mailer->send($message);
+
+
+
+            }
+            ///////////////////////////////
 
             return $this->redirectToRoute('app_contrat_show', ['id' => $contrat->getId()]);
         }
