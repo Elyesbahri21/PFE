@@ -57,9 +57,8 @@ class ContratController extends AbstractController
             'contrat' => $xcontrat,
         ]));
         $mailer->send($message);
-        echo $xcontrat;
         }
-
+        
 
         return $this->render('contrat/index.html.twig', [
             'contrats' => $contrats,

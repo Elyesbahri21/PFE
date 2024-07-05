@@ -54,7 +54,7 @@ class VisiteController extends AbstractController
             'visites' => $this->visiteRepository->findByResponsable($user = $this->getUser())
         ]);
     }
-
+    
     #[Route('/new', name: 'visite_new', methods: ['GET', 'POST'])]
     public function new(Request $request,UserRepository $userRepository,EntityManagerInterface $entityManager, SluggerInterface $slugger,MailerInterface $mailer): Response
     {
@@ -103,8 +103,6 @@ class VisiteController extends AbstractController
             'visite' => $visite,
             'form' => $form->createView(),
             'userType' => $userType,
-           
-
         ]);
     }
 

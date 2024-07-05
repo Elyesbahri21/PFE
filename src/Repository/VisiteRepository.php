@@ -8,6 +8,8 @@ use App\Entity\User;
 use App\Entity\Contrat;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
 use DateInterval;
 
 /**
@@ -103,7 +105,7 @@ class VisiteRepository extends ServiceEntityRepository
             ->getSingleScalarResult();
     }
 
-    public function createThreeVisites(Contrat $contrat)
+    public function createThreeVisites(Contrat $contrat,MailerInterface $mailer)
     {
         $now = new \DateTime();
         for ($i = 1; $i < 4; $i++) {
@@ -114,10 +116,18 @@ class VisiteRepository extends ServiceEntityRepository
             $visite->setPv('PV'); // Set your pv accordingly
             $visite->setContrat($contrat);
             $visite->setResponsable(null);
-
             $this->entityManager->persist($visite);
         }
 
         $this->entityManager->flush();
+        
+        $message = (new Email())
+        ->from('contratlab@gmail.com')
+        ->to('elyesbahri.contact@gmail.com')
+        ->subject('Votre contrat expire bientôt')
+        ->html($this->renderView('visite/email.html.twig', [
+            'visite' => $visite,
+        ]));
+        $mailer->send($message);
     }
 }
