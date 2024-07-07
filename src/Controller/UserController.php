@@ -104,14 +104,21 @@ class UserController extends AbstractController
         return $this->redirectToRoute('app_user_index');
     }
     
-    #[Route('/user/{id}/deactivate', name: 'app_user_deactivate', methods: ['POST'])]
-    public function deactivate(User $user, EntityManagerInterface $entityManager): Response
+    #[Route('/user/{id}/ActivateDeactivate', name: 'app_user_Status', methods: ['POST'])]
+    public function ActivateDeactivate(User $user, EntityManagerInterface $entityManager,UserRepository $userRepository): Response
     {
+        if($user->getIsActive())
         $user->setIsActive(false);
+        else
+        $user->setIsActive(true);
+
         $entityManager->flush();
     
-        return $this->redirectToRoute('app_user_index');
+        return $this->render('user/index.html.twig', [
+            'users' => $userRepository->findAll(),
+        ]);
     }
+    
     
 
     
