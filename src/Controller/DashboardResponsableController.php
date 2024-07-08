@@ -28,6 +28,8 @@ class DashboardResponsableController extends AbstractController
         $preventives = $this->visiteRepository->countVisitesByType($user, 'Préventive');
         $curatives = $this->visiteRepository->countVisitesByType($user, 'Curative');
         $evolutives = $this->visiteRepository->countVisitesByType($user, 'Évolutive');
+        $this->addFlash('success', 'Ajout avec succès');
+
 
         return $this->render('dashboard Responsable/Dashboard_Responsable.twig', [
             'controller_name' => 'DashboardController',
