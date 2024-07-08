@@ -114,9 +114,7 @@ class UserController extends AbstractController
 
         $entityManager->flush();
     
-        return $this->render('user/index.html.twig', [
-            'users' => $userRepository->findAll(),
-        ]);
+        return $this->redirectToRoute('app_dashboard_utilisateurs');
     }
     
     
