@@ -38,6 +38,8 @@ class UserController extends AbstractController
             $entityManager->persist($user);
             $entityManager->flush();
 
+            $this->addFlash('success', 'Ajout avec succès');
+
             return $this->redirectToRoute('app_dashboard_utilisateurs', [], Response::HTTP_SEE_OTHER);
         }
         

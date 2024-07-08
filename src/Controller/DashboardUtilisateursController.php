@@ -15,6 +15,7 @@ class DashboardUtilisateursController extends AbstractController
     {
         $totalUsers = $userRepository->count([]); 
         $users = $userRepository->findAll();
+        $this->addFlash('success', 'Ajout avec succès');
 
 
         

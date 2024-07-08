@@ -192,6 +192,12 @@
     </div>
 {% endfor %}
 
+        {% if app.flashes('success') %}
+        <script>
+        alert('Ajout avec succès');
+        </script>
+        {% endif %}
+
 {#
 <script>
     function handleUserAction(userId, action) {
