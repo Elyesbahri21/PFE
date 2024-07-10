@@ -77,6 +77,7 @@ class VisiteController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             /** @var UploadedFile $pvFile */
             $pvFile = $form->get('pv')->getData();
+            $visite->setResponsable($form->get('responsable')->getData());
 
             if ($pvFile) {
                 $originalFilename = pathinfo($pvFile->getClientOriginalName(), PATHINFO_FILENAME);
@@ -123,6 +124,7 @@ class VisiteController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             /** @var UploadedFile $pvFile */
             $pvFile = $form->get('pv')->getData();
+            $visite->setResponsable($form->get('responsable')->getData());
 
             if ($pvFile) {
                 $originalFilename = pathinfo($pvFile->getClientOriginalName(), PATHINFO_FILENAME);

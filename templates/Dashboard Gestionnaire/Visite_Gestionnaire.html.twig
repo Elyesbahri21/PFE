@@ -1,33 +1,17 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Modifier Visite{% endblock %}
-
-{% block stylesheets %}
-<style>
-.form-container {
-            padding: 50px;
-        }
-        h1 {
-            text-align: center;
-        }
-        .btn-back {
-            padding: 10px 20px; 
-            margin-left: 50px;
-        }
-</style>
-{% endblock %}
+{% block title %}Dashboard_responsable{% endblock %}
 
 {% block body %}
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
  <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container">
-        <a class="navbar-brand" href="http://127.0.0.1:8000/">
-            <img src="/code/contratlab-logo-png.png" style="height: 50px; width: auto;" alt="ContratLab Logo">
-        </a>
+         <a class="navbar-brand" href="http://127.0.0.1:8000/">
+                <img src="/code/contratlab-logo-png.png" alt="ContractLab Logo"  style="height: 30%; width: 25%; margin-left: 20px;">
+            </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -73,11 +57,10 @@
     </div>
 </nav>
 
-
 <body>
     <!-- Navigation-->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark" id="mainNav">
-        <a class="navbar-brand" href="http://127.0.0.1:8000/dashboard_responsable">Dashboard Responsable </a>
+        <a class="navbar-brand" href="http://127.0.0.1:8000/dashboard_gestionnaire">Dashboard Gestionnaire </a>
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -99,7 +82,18 @@
                     </a>
                 </li>
                 
-                 
+                 <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Charts">
+                    <a class="nav-link" href="http://127.0.0.1:8000/produit">
+                        <i class="fa fa-fw fa-area-chart"></i>
+                        <span class="nav-link-text">Produits</span>
+                    </a>
+                </li>
+                 <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Charts">
+                    <a class="nav-link" href="http://127.0.0.1:8000/visite_gestionnaire">
+                        <i class="fa fa-fw fa-area-chart"></i>
+                        <span class="nav-link-text">Affectation des visites </span>
+                    </a>
+                </li>
                 {% endif %} 
                 {% if is_granted('ROLE_ADMIN') %}
                 <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Charts">
@@ -109,7 +103,12 @@
                     </a>
                 </li>
                 {% endif %} 
-                
+                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
+                    <a class="nav-link" href="http://127.0.0.1:8000/contrat">
+                        <i class="fa fa-fw fa-table"></i>
+                        <span class="nav-link-text">Contrats</span>
+                    </a>
+                </li>
                 {% if is_granted('ROLE_ADMIN') %}
        
                 <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
@@ -119,12 +118,6 @@
                     </a>
                 </li> 
                  {% endif %} 
-                 <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
-                    <a class="nav-link" href="http://127.0.0.1:8000/visite">
-                        <i class="fa fa-fw fa-table"></i>
-                        <span class="nav-link-text">Interventions</span>
-                    </a>
-                </li> 
             </ul>
         </div>
     </nav>
@@ -136,41 +129,53 @@
                 <li class="breadcrumb-item">
                     <a href="#">Dashboard</a>
                 </li>
-                <li class="breadcrumb-item active">Dashboard Responsable</li>
-                <li class="breadcrumb-item active">Modifier visite</li>
+                <li class="breadcrumb-item active">Dashboard Gestionnaire</li>
+                <li class="breadcrumb-item active">Affectation des visites</li>
             </ol>
 
+           
+<br>
+<!-- User Table -->
+              <h2>Liste des Visites totales</h2>
+          <div class="form-outline" data-mdb-input-init>
+    <input type="search" id="searchInput" class="form-control" placeholder="Recherche" aria-label="Search" />
+</div> 
+ <div class="container">
+   
+    <div class="table-responsive">
+        <table class="responsive-table">
+            <thead>
+                <tr class="table-header">
+                    <th>Date</th>
+                    <th>Type</th>
+                    <th>Responsable</th>
+                    <th>Contrat</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>     
+                 {% for visite in visites %}
+                <tr class="table-row">
+                    <td class="col col-1" data-label="Date">{{ visite.date ? visite.date|date('Y-m-d H:i:s') : '' }}</td>
+                    <td class="col col-2" data-label="Type">{{ visite.type }}</td>
+                    <td class="col col-3" data-label="Description">{{ visite.responsable }}</td>
+                    <td class="col col-4" data-label="Responsable">{{ visite.contrat }}</td>
+                    <td class="col col-6" data-label="Actions">
+                        <div class="btn-group" role="group">
+                            <a class="btn btn-outline-secondary" href="{{ path('visite_edit', {'id': visite.id}) }}">Modifier</a>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <br>
+          {# <a type="button" class="btn btn-secondary" href="{{ path('visite_new') }}">Créer une nouvelle visite</a></div> #}
+          <br>
+    </div>
+</div> 
+<br><br><br><br>
 
-
-
-
-<div class="form-container">
-    <h1 class="mt-4 mb-4">Modifier Visite</h1>
-
-    <div class="visite-form">
-    {{ form_start(form) }}
-        {{ form_widget(form) }}
-        <button type="submit" class="btn btn-outline-success" style="margin-top: 20px;"
-            {% if is_granted('ROLE_GESTIONNAIRE') %}
-                formaction="http://127.0.0.1:8000/visite_gestionnaire"
-            {% else %}
-                formaction="http://127.0.0.1:8000/visite/"
-            {% endif %}
-        >Modifier</button>
-    {{ form_end(form) }}
-</div>
-
-</div>
-    <a {% if is_granted('ROLE_GESTIONNAIRE') %}
-       href="http://127.0.0.1:8000/visite_gestionnaire"
-   {% else %}
-       href="http://127.0.0.1:8000/visite/"  
-   {% endif %} class="btn btn-outline-primary btn-back "style="margin-top: 20px ;">Retour à la liste</a>
-
-    {# {% include 'visite/_delete_form.html.twig' %} #}
-
-
-    <br><br><br><br><br><br>
     <!-- Footer -->
    <footer class="footer">
       <div class="footer__addr">
@@ -251,7 +256,26 @@
     background-color: green;
     content: 'Activé';
 }
+.navbar-brand img {
+            height: 30%;
+            width: 30%;
+        }
 
+        .navbar-nav .nav-link {
+            white-space: nowrap;
+            font-size: 15px; /* Increase font size */
+            font-weight: bold; /* Make font bold */
+        }
+        .navbar-nav .nav-link:hover {
+            color: #blue; /* Blue color on hover */
+        }
+        .navbar-nav .dropdown-menu {
+            background-color: #f8f9fa;
+        }
+
+        .navbar-nav .dropdown-menu .dropdown-item:hover {
+            background-color: #blue;
+        }
 .custom-control-label::before {
     transition: background-color 0.3s ease-in-out, content 0.3s ease-in-out;
     display: inline-block;
@@ -269,6 +293,37 @@
     position: relative;
     cursor: pointer;
 }
+ .dropdown {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .dropdown-toggle {
+    background-color: #f1f1f1;
+    color: #333;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .dropdown-menu {
+    display: none;
+    position: absolute;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    z-index: 1;
+  }
+  
+  .dropdown-menu a {
+    display: block;
+    padding: 10px 20px;
+    color: #333;
+    text-decoration: none;
+  }
+  
+  .dropdown-menu a:hover {
+    background-color: #f1f1f1;
+  }
 
 .footer {
     position: relative;
@@ -309,26 +364,7 @@ h2 {
     margin: 20px 0;
     text-align: center;
 }
-.navbar-brand img {
-            height: 30%;
-            width: 30%;
-        }
 
-        .navbar-nav .nav-link {
-            white-space: nowrap;
-            font-size: 15px; /* Increase font size */
-            font-weight: bold; /* Make font bold */
-        }
-        .navbar-nav .nav-link:hover {
-            color: #blue; /* Blue color on hover */
-        }
-        .navbar-nav .dropdown-menu {
-            background-color: #f8f9fa;
-        }
-
-        .navbar-nav .dropdown-menu .dropdown-item:hover {
-            background-color: #blue;
-        }
 .small {
     font-size: 0.5em;
 }
@@ -579,5 +615,16 @@ h2 {
 
 </style>
 
+<script>
+    document.getElementById('searchInput').addEventListener('keyup', function() {
+        var searchTerm = this.value.toLowerCase();
+        var tableRows = document.querySelectorAll('.responsive-table .table-row');
+        
+        tableRows.forEach(function(row) {
+            var rowText = row.textContent.toLowerCase();
+            row.style.display = rowText.includes(searchTerm) ? '' : 'none';
+        });
+    });
+</script>
 
 {% endblock %}

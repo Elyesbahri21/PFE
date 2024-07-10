@@ -4,6 +4,7 @@ namespace App\Form;
 use App\Entity\Visite;
 use App\Entity\Contrat;
 use App\Entity\User;
+use App\Repository\UserRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -63,6 +64,17 @@ class VisiteType extends AbstractType
                 'choice_label' => 'nom',
                 'attr' => ['class' => 'form-control'], // Bootstrap class for form-control
                 'required' => true,
+            ])
+            ->add('responsable', EntityType::class, [
+                'class' => User::class,
+                'query_builder' => function (UserRepository $userRepository) {
+                    return $userRepository->createQueryBuilder('u')
+                        ->andWhere('u.roles LIKE :role')
+                        ->setParameter('role', '%ROLE_RESPONSABLE%');
+                },
+                'choice_label' => 'username', 
+                'attr' => ['class' => 'form-control'],
+                'required' => false,
             ]);
     }
 
