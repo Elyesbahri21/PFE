@@ -165,7 +165,17 @@
             <td class="col col-3" data-label="Nom">{{ user.nom }}</td>
             <td class="col col-4" data-label="Téléphone">{{ user.telephone }}</td>
             <td class="col col-5" data-label="Rôle">{{ user.getRoles()|join(', ') }}</td>
-            <td class="col col-6" data-label="Statut">
+            <td class="col col-6" data-label="Statut">                
+            {% if user.isActive == 1 %}
+                    Active
+                {% else %}
+                    Inactive
+                {% endif %}
+            </td>
+            <td class="col col-7" data-label="Actions">
+                <div class="btn-group" role="group">
+                    <a class="btn btn-outline-secondary" href="{{ path('app_user_edit', {'id': user.id}) }}">Modifier</a>
+                    {% include 'user/_delete_form.html.twig' with {'users': [user]} %}
                 <!-- Form to activate/deactivate the user -->
                 <form id="form-status-{{ user.id }}" action="{{ path('app_user_Status', {'id': user.id}) }}" method="POST" style="display: none;">
                     <input type="hidden" name="_method" value="POST">
@@ -176,16 +186,17 @@
                 <a href="#" onclick="event.preventDefault(); document.getElementById('form-status-{{ user.id }}').submit();">
                     Activer/Désactiver
                 </a>
-            </td>
-            <td class="col col-7" data-label="Actions">
-                <div class="btn-group" role="group">
-                    <a class="btn btn-outline-secondary" href="{{ path('app_user_edit', {'id': user.id}) }}">Modifier</a>
-                    {% include 'user/_delete_form.html.twig' with {'users': [user]} %}
                 </div>
             </td>
         </tr>
     </div>
 {% endfor %}
+
+        {% if app.flashes('success') %}
+        <script>
+        alert('Ajout avec succès');
+        </script>
+        {% endif %}
 
 {#
 <script>
