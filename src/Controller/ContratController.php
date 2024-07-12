@@ -105,8 +105,6 @@ class ContratController extends AbstractController
 
         $user = $this->getUser(); // Get the current user
         // Add flash message for success notification
-        //$this->addFlash('success', 'Contrat ajouté avec succès.');
-
         if (!$user) {
             throw $this->createAccessDeniedException('You must be logged in to create a contrat.');
         }
@@ -114,7 +112,6 @@ class ContratController extends AbstractController
         $contrat->setUser($user); // Set the user to the current logged-in user
 
         if ($form->isSubmitted() && $form->isValid()) {
-            //$this->addFlash('success', 'Contract created successfully!');
             /** @var UploadedFile $brochureFile */
             $brochureFile = $form->get('brochure')->getData();
 
@@ -141,9 +138,9 @@ class ContratController extends AbstractController
             for ($i = 1; $i < 4; $i++) {
                 $visite = new Visite();
                 $visite->setDate((clone $now)->add(new DateInterval('P' . ($i * 4) . 'M')));
-                $visite->setType('préventive'); // Set your type accordingly
-                $visite->setDescription('Description'); // Set your description accordingly
-                $visite->setPv('PV'); // Set your pv accordingly
+                $visite->setType('préventive'); 
+                $visite->setDescription('Description'); 
+                $visite->setPv('PV'); 
                 $visite->setContrat($contrat);
                 $visite->setResponsable(null);
                 $entityManager->persist($visite);
@@ -151,7 +148,7 @@ class ContratController extends AbstractController
 
                 $message = (new Email())
                 ->from('contratlab@gmail.com')
-                ->to('azizrihani.pro@gmail.com')
+                ->to('contratlab@contratlab.com')
                 ->subject('Nouvelle visite affectée')
                 ->html($this->renderView('visite/email.html.twig', [
                     'visite' => $visite,
@@ -177,7 +174,7 @@ class ContratController extends AbstractController
             $entityManager->remove($contrat);
             $entityManager->flush();
 
-            $this->addFlash('success', 'Contract deleted successfully!');
+            $this->addFlash('success', 'Contrat Supprimer avec succées!');
         } else {
             $this->addFlash('error', 'Invalid CSRF token.');
         }

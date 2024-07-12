@@ -490,6 +490,18 @@ document.getElementById('searchInput').addEventListener('keyup', filterContracts
 
 
 </script>
-    
+    {% for type, messages in app.flashes %}
+        {% for message in messages %}
+            <script>
+                Swal.fire({
+                    icon: '{{ type }}',
+                    title: '{{ message|e('js') }}',
+                    showConfirmButton: false,
+                    timer: 3000
+                });
+            </script>
+        {% endfor %}
+    {% endfor %}
+
 
 {% endblock %}

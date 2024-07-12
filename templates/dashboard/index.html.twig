@@ -175,7 +175,7 @@ var ctxPie = document.getElementById('myPieChart').getContext('2d');
 var myPieChart = new Chart(ctxPie, {
     type: 'pie',
     data: {
-        labels: ['Total Users', 'Total Contrats', 'Total Clients'],
+        labels: ['Total Utilisateurs', 'Total Contrats', 'Total Clients'],
         datasets: [{
             label: 'Totals',
             data: [{{ totalUsers }}, {{ totalContrats }}, {{ totalClients }}],
@@ -732,7 +732,7 @@ body.sidenav-toggled .navbar-sidenav-tooltip.show {
   }
 }
 #mainNav.navbar-dark .navbar-collapse .navbar-sidenav {
-    height: 100vh; /* Set the height to 100% of the viewport height */
+    height: 500vh; /* Set the height to 100% of the viewport height */
     background: #343a40;
 }
 

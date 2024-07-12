@@ -15,16 +15,18 @@ class DashboardUtilisateursController extends AbstractController
     {
         $totalUsers = $userRepository->count([]); 
         $users = $userRepository->findAll();
-        $this->addFlash('success', 'Ajout avec succès');
+        // $this->addFlash('success', 'Ajout avec succès');
 
-
+        $activeUsers = $userRepository->count(['isActive' => 1]);
+        $inactiveUsers = $userRepository->count(['isActive' => 0]);
         
 
         return $this->render('dashboard/dashboard_utilisateurs.html.twig', [
             'controller_name' => 'DashboardController',
             'users' => $users,
             'totalUsers' => $totalUsers,
-
+            'activeUsers' => $activeUsers,
+            'inactiveUsers' => $inactiveUsers,
         ]);
     }
     

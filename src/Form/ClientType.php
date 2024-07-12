@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use App\Entity\Contrat;
 use App\Entity\Client;
 use App\Entity\Produit;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -30,8 +31,11 @@ class ClientType extends AbstractType
             ->add('telephone', TelType::class, [
                 'attr' => ['class' => 'form-control'],
             ])
-            ->add('contrat', TextType::class, [
-                'attr' => ['class' => 'form-control'],
+            ->add('contrat', EntityType::class, [
+                'class' => Contrat::class,
+                'choice_label' => 'nom',
+                'attr' => ['class' => 'form-control'], // Bootstrap class for form-control
+                'required' => false,
             ])
             ->add('produits', EntityType::class, [
                 'class' => Produit::class,

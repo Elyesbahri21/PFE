@@ -159,7 +159,7 @@
                     <td class="col col-1" data-label="Date">{{ visite.date ? visite.date|date('Y-m-d H:i:s') : '' }}</td>
                     <td class="col col-2" data-label="Type">{{ visite.type }}</td>
                     <td class="col col-3" data-label="Description">{{ visite.responsable }}</td>
-                    <td class="col col-4" data-label="Responsable">{{ visite.contrat }}</td>
+                    {# <td class="col col-4" data-label="Responsable">{{ visite.contrat }}</td> #}
                     <td class="col col-6" data-label="Actions">
                         <div class="btn-group" role="group">
                             <a class="btn btn-outline-secondary" href="{{ path('visite_edit', {'id': visite.id}) }}">Modifier</a>

@@ -49,7 +49,7 @@
     <div class="form-group">
         {{ form_label(form.produits, 'Produits', {'label_attr': {'class': 'form-label'}}) }}
         {% if form.produits.vars.required %}
-            <span style="color: red;">*</span>
+            <span style="color: red;"></span>
         {% endif %}
         {{ form_widget(form.produits, {'attr': {'class': 'form-control'}}) }}
         {{ form_errors(form.produits) }}

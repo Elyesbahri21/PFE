@@ -210,9 +210,13 @@ $(document).ready(function() {
             type: 'GET',
             error: function() {
                 alert('Il y a eu une erreur lors de la récupération des événements!');
+                console.error('Error fetching events');
+            },
+            success: function(data) {
+                console.log('Events fetched successfully:', data);
             }
         },
-         eventRender: function(event, element) {
+        eventRender: function(event, element) {
             var tooltipContent = '<b>' + event.title + '</b><br>' +
                                  'Responsable: ' + event.responsable + '<br>' +
                                  'Contrat: ' + event.contratName;
@@ -261,7 +265,7 @@ $(document).ready(function() {
 </body>
 
 
-<style>
+<style> 
 
 .chart {
             width: 100%;

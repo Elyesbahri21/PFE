@@ -50,16 +50,16 @@ class UserType extends AbstractType
                 'mapped' => false,
                 'attr' => ['class' => 'form-control', 'autocomplete' => 'new-password'],
                 'constraints' => [
-                    new NotBlank([
-                        'message' => 'Please enter a password',
-                    ]),
+                    // new NotBlank([
+                    //     'message' => 'Please enter a password',
+                    // ]),
                     new Length([
                         'min' => 6,
                         'minMessage' => 'Your password should be at least {{ limit }} characters',
                         'max' => 4096,
                     ]),
                 ],
-                'required' => true,
+                
             ])
             ->add('isActive', ChoiceType::class, [
                 'choices' => [

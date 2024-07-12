@@ -106,8 +106,15 @@
                 </li>
                 <li class="breadcrumb-item active">Clients</li>
             </ol>
-
-                
+<br>
+                <div id="flash-messages">
+            {% for flash_message in app.flashes('success') %}
+                <div class="alert alert-success" role="alert">
+                    {{ flash_message }}
+                </div>
+            {% endfor %}
+        </div>
+        <br>
 
             <!-- User Table -->
              <h2>Liste des Clients</h2>

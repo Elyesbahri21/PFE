@@ -30,6 +30,7 @@ class ClientController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $this->addFlash('success', 'Ajouté avec succès');
             $entityManager->persist($client);
             $entityManager->flush();
 
@@ -57,6 +58,7 @@ class ClientController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $this->addFlash('success', 'Modifié avec succès');
             $entityManager->flush();
 
             return $this->redirectToRoute('app_client_index', [], Response::HTTP_SEE_OTHER);
@@ -72,6 +74,7 @@ class ClientController extends AbstractController
     public function delete(Request $request, Client $client, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$client->getId(), $request->request->get('_token'))) {
+            $this->addFlash('success', 'Supprimer avec succès');
             $entityManager->remove($client);
             $entityManager->flush();
         }
