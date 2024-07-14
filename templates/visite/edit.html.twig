@@ -151,11 +151,7 @@
     {{ form_start(form) }}
         {{ form_widget(form) }}
         <button type="submit" class="btn btn-outline-success" style="margin-top: 20px;"
-            {% if is_granted('ROLE_GESTIONNAIRE') %}
-                formaction="http://127.0.0.1:8000/visite_gestionnaire"
-            {% else %}
-                formaction="http://127.0.0.1:8000/visite/"
-            {% endif %}
+            
         >Modifier</button>
     {{ form_end(form) }}
 </div>
