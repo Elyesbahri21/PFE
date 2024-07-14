@@ -36,13 +36,6 @@ class ClientType extends AbstractType
                 'choice_label' => 'nom',
                 'attr' => ['class' => 'form-control'], // Bootstrap class for form-control
                 'required' => false,
-            ])
-            ->add('produits', EntityType::class, [
-                'class' => Produit::class,
-                'choice_label' => 'nom', // Assuming 'nom' is the property you want to display
-                'multiple' => true,
-                'expanded' => true, // Adjust as needed
-                'attr' => ['class' => 'form-control'],
             ]);
     }
 
